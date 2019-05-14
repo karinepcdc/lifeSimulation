@@ -7,7 +7,7 @@ using std::vector;
 #include <iostream>
 #include <algorithm>
 
-#include "../include/common.h"
+#include "../include/commonCanvas.h"
 
 namespace life {
 
