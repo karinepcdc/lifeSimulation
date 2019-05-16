@@ -5,10 +5,18 @@ class LifeConfig
     private:
 
         int width;
-        int height;
-        Celula vivas[];
+        int heigth;
+        Celula cellBoard[][];
     
     public:
+
+        /// default constructor
+        LifeConfig(int w = 0, int h = 0):
+            width{w}, heigth{h}
+        { 
+            cellBoard = new Celula[width][heigth];
+        }
+
 
         bool extinct() const;
 
@@ -16,5 +24,11 @@ class LifeConfig
 
         void evolve();
 
-        &LifeConfig operator=(const )
+        /// assignment operator
+        &LifeConfig operator=(const LifeConfig & other)
+        {
+            this->width = other.width;
+            this->heigth = other.heigth;
+            this->cellBoard = other.cellBoard;
+        }
 }
