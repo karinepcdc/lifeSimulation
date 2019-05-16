@@ -30,7 +30,7 @@ namespace life {
 
   typedef struct SimulationState_t{
     int currentGeneration; // number of current generation 
-    vector< Celula > cellChanges[0]; // vector with cell that will change state
+    std::vector< Celula > cellChanges[0]; // vector with cell that will change state
   
   } SimulationState;
 }
