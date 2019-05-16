@@ -10,6 +10,7 @@ int main( int argc, char * argv[] ){
   simulation.initialize( argc, argv );
 
   // Initial message
+
   simulation.render();
 
   // The simulation loop

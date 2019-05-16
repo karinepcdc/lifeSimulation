@@ -8,7 +8,7 @@ namespace life
 {
   
   /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
-  class lifeSimulation()
+  class LifeSimulation()
   {
   private:
 

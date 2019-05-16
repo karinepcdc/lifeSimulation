@@ -1,12 +1,22 @@
+#ifndef _COMMOMLIFE_H
+#define _COMMOMLIFE_H
 
-struct Celula
+typedef struct Celula_t
 {
     int x;
     int y;
-    bool vivo;
-};
+    bool alive;
+} Celula;
 
-struct Options
+typedef struct Options
 {
     
-};
+} Options;
+
+
+typedef struct SimulationState_t{
+  int currentGeneration;
+  // vector with cell that will change state
+} SimulationState;
+
+#endif
