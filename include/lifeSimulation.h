@@ -8,12 +8,12 @@ namespace life
 {
   
   /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
-  class LifeSimulation()
+  class LifeSimulation
   {
   private:
 
     LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    LogLife log;        // Log das gerações 
+    //LogLife log;        // Log das gerações 
     Options simOptions; // Opções da simulações 
     
     
