@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project (Canvas VERSION 1.0.0 LANGUAGES CXX )
+project (LifeSimulation VERSION 1.0.0 LANGUAGES CXX )
 
 #=== FINDING PACKAGES ===#
 
@@ -18,9 +18,9 @@ include_directories( include )
 
 #=== Main App ===
 #Can manually add the sources using the set command as follows:
-#set(SOURCES src/canvas.cpp src/magos.cpp)
+#set(SOURCES src/canvas.cpp )
 
 #However, the file(GLOB...) allows for wildcard additions:
 file(GLOB SOURCES "src/*.cpp")
 
-add_executable(canvas ${SOURCES})
+add_executable(simLife ${SOURCES})

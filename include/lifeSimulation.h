@@ -1,4 +1,6 @@
 #include <string>
+#include <iostream>
+
 
 #include "commonLife.h"
 #include "lifeConfig.h"
@@ -19,7 +21,7 @@ namespace life
     
   public:
   
-    /// Inicializa a simulação com uma mensagem de boas vindas; lê as opções passadas pelo usuário via linha de comando processa algumas opções e guarda aquelas que serão usadas posteriormente; Carrega configuração inicial;
+    /// Initialize simulation with a welcome menssage; Read and register game options and process some of them; Load initial configuration;
     void initialize( int argc, char *argv[] );
 
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
