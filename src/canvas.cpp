@@ -1,4 +1,4 @@
-#include "../include/canvas.h"
+#include "../include/canvas/canvas.h"
 
 //=== Special members
 /*
