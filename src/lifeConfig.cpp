@@ -3,9 +3,9 @@
 ////////////// não sei pq nao ta dando certo
 
 /// returns a vector with only cells alive
-std::vector<Celula> life::LifeConfig::getAlive()
+std::vector<life::Celula> life::LifeConfig::getAlive()
 {
-  std::vector<Celula> cellsAlive;
+  std::vector<life::Celula> cellsAlive;
 
   // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
   for( int i = 1; i < width-1; i++ )
@@ -68,7 +68,7 @@ LifeConfig& life::LifeConfig::operator=(const std::vector<Celula> alives)
 /// Friend functions
 
 /// operator << to print a LifeConfig istance
-friend std::ostream& life::LifeConfig::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
+friend std::ostream& life::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
 {
     // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
     for( int i = 1; i < lifeBoard.width-1; i++ )

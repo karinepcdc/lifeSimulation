@@ -16,15 +16,15 @@ void life::LifeSimulation::initialize( int argc, char *argv[] )
     throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file>");
 
   }
-       
+
   // Read game options
   std::string option, destination;
-  
+
   int i=1;
   while( i < argc-1 ){
 
     option = argv[i];
-    
+
     if( option == "--help"){
 
       std::cout << " >>> Usage: glife [<options>] <input_cfg_file>\n\n"
@@ -41,18 +41,18 @@ void life::LifeSimulation::initialize( int argc, char *argv[] )
 		<< " BLACK BLUE CRIMSON DARK_GREEN DEEP_SKY_BLUE DODGER_BLUE\n"
 		<< " GREEN LIGHT_BLUE LIGHT_GREY LIGHT_YELLOW RED STEEL_BLUE\n"
 		<< " WHITE YELLOW\n"
-		<< std::endl;	
-      
+		<< std::endl;
+
     } else if( option == "--imgdir"){
-      
+
       if (i + 1 < argc) { // Make sure we aren't at the end of argv!
 	destination = argv[i++]; // Increment 'i' so we don't get the argument as the next argv[i].
       } else { // Uh-oh, there was no argument to the destination option.
-	throw std::invalid_argument("--destination option requires one argument.");	
+	throw std::invalid_argument("--destination option requires one argument.");
       }
 
       // preencher struct option
-      
+
     } else if( option == "--maxgen"){
       //usar atoi ou opção que fiz em search project... qual melhor?
 
@@ -71,9 +71,9 @@ void life::LifeSimulation::initialize( int argc, char *argv[] )
     } else if( option == "--outfile"){
 
 
-    } 
-    
-    
+    }
+
+
 
     i++;
   }
@@ -83,11 +83,11 @@ void life::LifeSimulation::initialize( int argc, char *argv[] )
 
   // Register game options; Fill structure option
 
-   
+
   // Process game options
 
 
-  // Load initial configuration; 
+  // Load initial configuration;
   // instancia a lifeconfig
 
   // instancia loglife e registra primeiro log

@@ -2,74 +2,113 @@
 #include <iostream>
 #include <vector>
 
-namespace life {
-  
-    class LifeConfig
-    {
-        private:
+namespace life
+{
 
-            int width;
-            int heigth;
-            Celula **cellBoard;
+  class LifeConfig
+  {
+      private:
 
-        public:
+          int width;
+          int heigth;
+          Celula **cellBoard;
 
-            /// default constructor
-            LifeConfig(int w = 0, int h = 0):
-                width{w+2}, heigth{h+2} // adding dead cell boundary
+      public:
+
+          /// default constructor
+          LifeConfig(int w = 0, int h = 0):
+              width{w+2}, heigth{h+2} // adding dead cell boundary
+          {
+              // allocate cell board
+              cellBoard = new Celula*[width];
+              for(int i = 0; i < width; i++)
+              {
+                  cellBoard[i] = new Celula[heigth];
+              }
+
+              // set cells positions
+              for(int i = 0; i < width; i++)
+              {
+                  for(int j = 0; j < heigth; j++)
+                  {
+                      cellBoard[i][j].x = i;
+                      cellBoard[i][j].y = j;
+                      cellBoard[i][j].alive = false;
+                  }
+              }
+
+          }
+
+          /// destructor
+          ~LifeConfig()
+          {
+              for(int i = 0; i < width; i++)
+              {
+                  delete [] cellBoard[i];
+              }
+              delete cellBoard;
+          }
+
+          /// returns true if not exist any cell alive, else returns false
+          // TEM QUE TESTAR
+          bool extinct()
+          {
+            // vector with only cells alive of this cell board
+            std::vector<Celula> cellsAlive = this->getAlive();
+
+            if(cellsAlive.size() == 0)
             {
-                // allocate cell board
-                cellBoard = new Celula*[width];
-                for(int i = 0; i < width; i++)
-                {
-                    cellBoard[i] = new Celula[heigth];
-                }
-
-                // set cells positions
-                for(int i = 0; i < width; i++)
-                {
-                    for(int j = 0; j < heigth; j++)
-                    {
-                        cellBoard[i][j].x = i;
-                        cellBoard[i][j].y = j;
-                        cellBoard[i][j].alive = false;
-                    }
-                }
-
+              return true;
             }
+            return false;
+          }
 
-            /// destructor
-            ~LifeConfig()
-            {
-                for(int i = 0; i < width; i++)
-                {
-                    delete [] cellBoard[i];
-                }
-                delete cellBoard;
-            }
+          /// returns the number of neighbors alives of Celula cell
+          // TEM QUE TESTAR
+          int getAliveNeighbors(Celula cell)
+          {
+            int aliveN = 0;
 
-            ///
-            bool extinct() const;
+            // line above of cell
 
-            /// returns a vector with only cells alive
-            std::vector<Celula> getAlive();
+            if( cellBoard[ cell.x-1 ][ cell.y-1 ].alive ) { aliveN++; }
+            if( cellBoard[ cell.x ][ cell.y-1 ].alive ) { aliveN++; }
+            if( cellBoard[ cell.x+1 ][ cell.y-1 ].alive ) { aliveN++; }
+
+            // line of cell
+
+            if( cellBoard[ cell.x-1 ][ cell.y ].alive ) { aliveN++; }
+            //if( cellBoard[ cell.x ][ cell.y ] ) ....cell
+            if( cellBoard[ cell.x+1 ][ cell.y ].alive ) { aliveN++; }
+
+            // line below of cell
+
+            if( cellBoard[ cell.x-1 ][ cell.y+1 ].alive ) { aliveN++; }
+            if( cellBoard[ cell.x ][ cell.y+1 ].alive ) { aliveN++; }
+            if( cellBoard[ cell.x+1 ][ cell.y+1 ].alive ) { aliveN++; }
+
+            return aliveN;
+          }
+
+          /// returns a vector with only cells alive
+          std::vector<Celula> getAlive();
 
 
-            /// update cellBoard
-            // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
-            // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
-            void evolve(std::vector<Celula> toAlter);
+          /// update cellBoard
+          // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
+          // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
+          void evolve(std::vector<Celula> toAlter);
 
-            /// assignment operator
-            LifeConfig& operator=(const LifeConfig & other);
+          /// assignment operator
+          LifeConfig& operator=(const LifeConfig & other);
 
-            /// assignment operator to set the cellBoard with a vector of alive cells
-            LifeConfig& operator=(const std::vector<Celula> alives);
+          /// assignment operator to set the cellBoard with a vector of alive cells
+          LifeConfig& operator=(const std::vector<Celula> alives);
 
-            /// Friend functions
+          /// Friend functions
 
-            /// operator << to print a LifeConfig istance
-            friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard );
+          /// operator << to print a LifeConfig istance
+          friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard );
 
-    };
+  };
 }
