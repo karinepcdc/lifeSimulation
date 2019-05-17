@@ -8,30 +8,30 @@
 
 namespace life
 {
-  
+
   /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
   class LifeSimulation
   {
   private:
 
     LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    //LogLife log;        // Log das gerações 
-    Options simOptions; // Opções da simulações 
-    
-    
+    //LogLife log;        // Log das gerações
+    Options simOptions; // Opções da simulações
+
+
   public:
 
     /// Default constructor ????????????????????? pode?
-    LifeSimulation() 
+    LifeSimulation()
     {/* empty */}
 
     /// Default desconstructor
     ~LifeSimulation()
     {/* empty */}
-    
+
     /// Initialize simulation with a welcome menssage; Read and register game options and process some of them; Load initial configuration;
     void initialize( int argc, char *argv[] );
-    
+
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
     void process_events( SimulationState state );
 
@@ -45,13 +45,13 @@ namespace life
     bool gameover( SimulationState state ) const;
 
   private:
-    
+
     /// Retorna se a simulação atingiu uma configuração estável
     bool stable() const;
 
     // métodos construct, etc...
-  
-  
+
+
   };
 
 

@@ -27,7 +27,7 @@ void life::Canvas::clear( const life::Color& color )
 {
   //  std::memset( m_pixels.data(), 0, m_width * m_height * image_depth ); // Clear the canvas with black color.
   life::Point2 p;
-  
+
   for( unsigned int i=0; i < m_width/m_block_size; i++ ){
 
     p.x=i;
@@ -35,10 +35,10 @@ void life::Canvas::clear( const life::Color& color )
       p.y=j;
 
       life::Canvas::pixel( p,  color );
-      
+
     }
   }
-  
+
 }
 
 void life::Canvas::pixel( const life::Point2& p,  const life::Color& color )
@@ -46,31 +46,31 @@ void life::Canvas::pixel( const life::Point2& p,  const life::Color& color )
   //Até onde percorrer as colunas de mini pixeis
   int limiteHorizontal = m_block_size * 4;
   int limiteVertical = limiteHorizontal  * m_width ;
-  
+
   //Acessar a posicao exata de um pequeno pixel no vector m_pixels
   int it = p.x * limiteHorizontal + p.y * limiteVertical;
   int acessador = it;
-  
+
   //contador para linhas
   short linhabs = m_block_size;
-  
-  //contador para colunas
-  short colunabs = linhabs;
-  
+
+  //contador para colunas (não usado?)
+  //short colunabs = linhabs;
+
   //Saltador de linha
   int saltoDeLinha = (m_width * 4) - limiteHorizontal ;
-                
+
   //Irá repetir o número de linhas do big pixel, por exemplo um bloco de 40px, tem 40 linhas
   while(linhabs != 0)
     {
       //Enquanto o acessador do vetor for menor que ele mesmo + o limite Horizontal
       while(acessador < it + limiteHorizontal)
 	{
-	  
+
 	  //set_pixel(acessador, color);
 	  // R
 	  m_pixels[acessador] = color.channels[0];
-                  
+
 	  // G
 	  m_pixels[acessador+1] = color.channels[1];
 
@@ -89,7 +89,7 @@ void life::Canvas::pixel( const life::Point2& p,  const life::Color& color )
 
       linhabs = linhabs-1;
     }
-  
+
 }
 
 /*

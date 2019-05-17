@@ -3,6 +3,7 @@
 #include <vector>
 
 namespace life {
+  
     class LifeConfig
     {
         private:
@@ -10,20 +11,20 @@ namespace life {
             int width;
             int heigth;
             Celula **cellBoard;
-        
+
         public:
 
             /// default constructor
             LifeConfig(int w = 0, int h = 0):
                 width{w+2}, heigth{h+2} // adding dead cell boundary
-            {   
+            {
                 // allocate cell board
                 cellBoard = new Celula*[width];
                 for(int i = 0; i < width; i++)
                 {
                     cellBoard[i] = new Celula[heigth];
                 }
-                
+
                 // set cells positions
                 for(int i = 0; i < width; i++)
                 {
@@ -34,7 +35,7 @@ namespace life {
                         cellBoard[i][j].alive = false;
                     }
                 }
-                
+
             }
 
             /// destructor
@@ -47,60 +48,28 @@ namespace life {
                 delete cellBoard;
             }
 
-            /// 
+            ///
             bool extinct() const;
 
-            Celula* getAlive();
+            /// returns a vector with only cells alive
+            std::vector<Celula> getAlive();
+
 
             /// update cellBoard
-            void evolve(std::vector<Celula> toAlter)
-            {   
-                Celula cellAux;
-                for(size_t i = 0; i < toAlter.size(); i++)
-                {
-                    cellAux = toAlter[i];
-                    // x and y are shifted to compensate for dead cell boundery
-                    cellBoard[cellAux.x+1][cellAux.y+1].x = cellAux.x+1;
-                    cellBoard[cellAux.x+1][cellAux.y+1].y = cellAux.y+1;
-                    // change alive status
-                    cellBoard[cellAux.x+1][cellAux.y+1].alive = !cellAux.alive;
-                }
-                
-            }
+            // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
+            // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
+            void evolve(std::vector<Celula> toAlter);
 
             /// assignment operator
-            LifeConfig& operator=(const LifeConfig & other)
-            {
-                this->width = other.width;
-                this->heigth = other.heigth;
-                this->cellBoard = other.cellBoard;
+            LifeConfig& operator=(const LifeConfig & other);
 
-                return *this;
-            }
+            /// assignment operator to set the cellBoard with a vector of alive cells
+            LifeConfig& operator=(const std::vector<Celula> alives);
 
             /// Friend functions
-            friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard )
-            {   
 
-                // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
-                for( int i = 1; i < lifeBoard.width-1; i++ )
-                {
-                    for( int j = 1; j < lifeBoard.heigth-1; j++ )
-                    {
-                        if( lifeBoard.cellBoard[i][j].alive )
-                        {
-                            os << "*";
-                        }
-                        else
-                        {
-                            os << ".";
-                        }
-                    }
-                    os << "\n";
-                }
+            /// operator << to print a LifeConfig istance
+            friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard );
 
-
-                return os;
-            }
     };
 }
