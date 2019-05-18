@@ -102,15 +102,20 @@ int main( int argc, char * argv[] )
 
   std::cout << "*************************************************************************************************" << std::endl;
 
-  state.cellChanges = aliveCells;
 
   //lifeSimulation
   life::LifeSimulation mySim(vida); // só o fato de criar esta istancia está dando o erro "double free or corruption"
 
+  // tem que reservar um espaço no vector
+  state.cellChanges.reserve(100); // não presta mesmo assim, mas passando o vector pro process_events() como parametro funciona
+
+  std::vector<life::Celula> cellsChange(100);
   mySim.process_events( state );
 
-
-  //mySim.update( state );
+  state.cellChanges = cellsChange;
+  std::cout << cellsChange[0].x << " ," << cellsChange[0].y << std::endl;
+  std::cout << cellsChange.size() << std::endl;
+  mySim.update( state );
 
   std::cout << vida << std::endl;
 

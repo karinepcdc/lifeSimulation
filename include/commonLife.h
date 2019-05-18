@@ -8,12 +8,38 @@
 
 namespace life {
 
-  typedef struct Celula_t
+  class Celula
   {
-    int x;
-    int y;
-    bool alive;
-  } Celula;
+    public:
+
+      /// Celula data
+      int x;
+      int y;
+      bool alive;
+
+      /// default constructor
+      Celula(int x=0, int y=0, bool alive=false):
+        x{x}, y{y}, alive{alive}
+      { /* empty */}
+
+      /// copy constructor
+      Celula( const Celula& other ):
+        x{other.x}, y{other.y}, alive{other.alive}
+      { /* empty */ }
+
+      /// default destructor
+      ~Celula()
+      {/* empty? */}
+
+      Celula& operator =(const Celula& a)
+      {
+        x = a.x;
+        y = a.y;
+        alive = a.alive;
+        return *this;
+      }
+
+  };
 
   typedef struct Options
   {

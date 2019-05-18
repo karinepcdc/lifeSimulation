@@ -71,24 +71,24 @@
   }
 
   /// returns the number of neighbors alives of Celula cell
-  int life::LifeConfig::getAliveNeighbors(Celula cell)
+  int life::LifeConfig::getAliveNeighbors(int x, int y)
   {
     int aliveN = 0;
     // line above of cell
-    if( cellBoard[ cell.x-1 ][ cell.y-1 ].alive ) { aliveN++; }
-    if( cellBoard[ cell.x-1 ][ cell.y ].alive ) { aliveN++; }
-    if( cellBoard[ cell.x-1 ][ cell.y+1 ].alive ) { aliveN++; }
+    if( cellBoard[ x-1 ][ y-1 ].alive ) { aliveN++; }
+    if( cellBoard[ x-1 ][ y ].alive ) { aliveN++; }
+    if( cellBoard[ x-1 ][ y+1 ].alive ) { aliveN++; }
 
     // line of cell
-    if( cellBoard[ cell.x ][ cell.y-1 ].alive ) { aliveN++; }
-    //if( cellBoard[ cell.x ][ cell.y ] ) ....cell
-    if( cellBoard[ cell.x ][ cell.y+1 ].alive ) { aliveN++; }
+    if( cellBoard[ x ][ y-1 ].alive ) { aliveN++; }
+    //if( cellBoard[ x ][ cell.y ] ) ....cell
+    if( cellBoard[ x ][ y+1 ].alive ) { aliveN++; }
 
     // line below of cell
 
-    if( cellBoard[ cell.x+1 ][ cell.y-1 ].alive ) { aliveN++; }
-    if( cellBoard[ cell.x+1 ][ cell.y ].alive ) { aliveN++; }
-    if( cellBoard[ cell.x+1 ][ cell.y+1 ].alive ) { aliveN++; }
+    if( cellBoard[ x+1 ][ y-1 ].alive ) { aliveN++; }
+    if( cellBoard[ x+1 ][ y ].alive ) { aliveN++; }
+    if( cellBoard[ x+1 ][ y+1 ].alive ) { aliveN++; }
 
     return aliveN;
   }

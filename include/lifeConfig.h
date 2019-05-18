@@ -54,7 +54,7 @@ namespace life
 
 
           /// returns the number of neighbors alives of Celula cell
-          int getAliveNeighbors(Celula cell);
+          int getAliveNeighbors(int x, int y);
 
 
           /// returns a vector with only cells alive

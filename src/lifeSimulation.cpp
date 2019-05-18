@@ -95,29 +95,33 @@
   }
 
   /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
-  void life::LifeSimulation::process_events( life::SimulationState state)
+  void life::LifeSimulation::process_events( life::SimulationState state )
   {
 
     //clear the vector of cells that will change
     state.cellChanges.clear();
+    //cellChanges.clear();
 
-    // temp Cell
-    life::Celula tempCell;
+
+    int acs = 0;
 
     for( int i = 1; i <= life.getHeigth() ; i++ )
     {
 
       for( int j = 1; j <= life.getWidth() ; j++ )
       {
+        // temp Cell
+        life::Celula tempCell = life.getCell(i,j);
 
-        tempCell = life.getCell(i,j);
         std::cout << "testando" << std::endl;
         if( tempCell.alive )
         {
           // if tempCell have 0 or 1 alive neighbor, or 4 or more neighbors alive, will die
-          if( life.getAliveNeighbors(tempCell) <= 1 || life.getAliveNeighbors(tempCell) >= 4)
+          if( life.getAliveNeighbors( i, j ) <= 1 || life.getAliveNeighbors( i, j ) >= 4)
           {
-            state.cellChanges.push_back(tempCell);
+            //state.cellChanges.push_back(tempCell);
+            state.cellChanges[acs] = tempCell;
+            acs++;
           }
           // else, will stay alive
         }
@@ -125,9 +129,11 @@
         else
         {
           // if tempCell have 3 alive neighbors, will live
-          if( life.getAliveNeighbors(tempCell) == 3 )
+          if( life.getAliveNeighbors( i, j ) == 3 )
           {
-            state.cellChanges.push_back(tempCell);
+            //state.cellChanges.push_back(tempCell);
+            state.cellChanges[acs] = tempCell;
+            acs++;
           }
           // else, will stay dead
         }
