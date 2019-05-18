@@ -8,6 +8,8 @@ int main( int argc, char * argv[] )
   life::LifeSimulation simulation;
   life::SimulationState state;
 
+  state.currentGeneration = 0;
+
   // Set up simulation
   simulation.initialize( argc, argv );
   /*
@@ -25,6 +27,7 @@ int main( int argc, char * argv[] )
 
   // testes
 
+  /*
   life::LifeConfig vida(5,5);
 
   std::cout << vida << std::endl;
@@ -35,25 +38,83 @@ int main( int argc, char * argv[] )
 
   for(int i = 0; i < 5 ; i++)
   {
-    cells[i].x = x;
-    cells[i].y = y;
+    cells[i].x = 1;
+    cells[i].y = 1;
     cells[i].alive = false;
     x++;
     y++;
   }
 
-  cells[4].x = 4;
-  cells[4].y = 4;
-  cells[4].alive = false;
+  life::Celula celula;
+  celula.x = 6;
+  celula.y = 6;
+  celula.alive = true;
 
-  vida.evolve(cells);
+  std::cout << vida.extinct() << std::endl;
+
+  //vida.evolve(cells);
 
   std::cout << vida << std::endl;
+
+  std::cout << vida.getAliveNeighbors(celula) << std::endl;
 
   vida = vida.getAlive();
 
   std::cout << vida << std::endl;
+  */
 
+  // Teste serios
+
+  life::LifeConfig vida(10,10);
+  std::vector< life::Celula> deadCells;
+
+  life::Celula mortinha;
+  mortinha.alive = false;
+  // preencher o tabuleiro com celulas mortas
+  for(int i = 0; i < 10 ; i++)
+  {
+    for(int j = 0; j < 10 ; j++)
+    {
+      mortinha.x = i;
+      mortinha.y = j;
+
+      deadCells.push_back(mortinha);
+    }
+  }
+
+  // definir uma configuração para começar a simulação (o operator=(vector<Celula>) faz isso), aqui deve compensar o dead boundary
+  std::vector< life::Celula> aliveCells;
+
+  life::Celula vivinha;
+  vivinha.alive = true;
+  vivinha.y = 5;
+  // vou colocar uma coluna inteira só de vivas;
+  for(int i = 1; i < 11 ; i++)
+  {
+    vivinha.x = i;
+    aliveCells.push_back(vivinha);
+  }
+
+  //Seta a configuração
+  vida = aliveCells;
+
+  std::cout << vida << std::endl;
+
+  std::cout << "*************************************************************************************************" << std::endl;
+
+  state.cellChanges = aliveCells;
+
+  //lifeSimulation
+  life::LifeSimulation mySim(vida); // só o fato de criar esta istancia está dando o erro "double free or corruption"
+
+  mySim.process_events( state );
+
+
+  //mySim.update( state );
+
+  std::cout << vida << std::endl;
+
+  std::cout << "oi de novo" << std::endl;
 
   return EXIT_SUCCESS;
 

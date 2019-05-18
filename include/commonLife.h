@@ -7,7 +7,7 @@
 #include "../include/canvas/commonCanvas.h"
 
 namespace life {
-  
+
   typedef struct Celula_t
   {
     int x;
@@ -24,14 +24,14 @@ namespace life {
     Color bkgcolor;          //!< Background color ?????????? check
     Color alivecolor;        //!< alive cells color ????????? check
     std::string outfile;     //!< text representation file
-     
+
   } Options;
 
 
   typedef struct SimulationState_t{
-    int currentGeneration; // number of current generation 
-    std::vector< Celula > cellChanges[0]; // vector with cell that will change state
-  
+    int currentGeneration; // number of current generation
+    std::vector< Celula > cellChanges; // vector with cell that will change state
+
   } SimulationState;
 }
 

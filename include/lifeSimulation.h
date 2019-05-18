@@ -16,7 +16,7 @@ namespace life
 
     LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
     //LogLife log;        // Log das gerações
-    Options simOptions; // Opções da simulações
+    //Options simOptions; // Opções da simulações
 
 
   public:
@@ -25,18 +25,25 @@ namespace life
     LifeSimulation()
     {/* empty */}
 
-    /// Default desconstructor
-    ~LifeSimulation()
+    /// constructor receving a lifeConfig variable
+    LifeSimulation(life::LifeConfig lf):
+      life{lf}
     {/* empty */}
+
+    /// Default destructor
+    ~LifeSimulation()
+    {
+      life.~LifeConfig();
+    }
 
     /// Initialize simulation with a welcome menssage; Read and register game options and process some of them; Load initial configuration;
     void initialize( int argc, char *argv[] );
 
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
-    void process_events( SimulationState state );
+    void process_events( life::SimulationState state);
 
     /// Atualiza o ecosistema baseado nas decisões do process_events
-    void update( SimulationState state );
+    void update( SimulationState state);
 
     /// Imprime a configuração atual do ecosistema
     void render( SimulationState state ) const;

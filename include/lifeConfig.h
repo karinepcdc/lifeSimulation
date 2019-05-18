@@ -50,54 +50,30 @@ namespace life
           }
 
           /// returns true if not exist any cell alive, else returns false
-          // TEM QUE TESTAR
-          bool extinct()
-          {
-            // vector with only cells alive of this cell board
-            std::vector<Celula> cellsAlive = this->getAlive();
+          bool extinct();
 
-            if(cellsAlive.size() == 0)
-            {
-              return true;
-            }
-            return false;
-          }
 
           /// returns the number of neighbors alives of Celula cell
-          // TEM QUE TESTAR
-          int getAliveNeighbors(Celula cell)
-          {
-            int aliveN = 0;
+          int getAliveNeighbors(Celula cell);
 
-            // line above of cell
-
-            if( cellBoard[ cell.x-1 ][ cell.y-1 ].alive ) { aliveN++; }
-            if( cellBoard[ cell.x ][ cell.y-1 ].alive ) { aliveN++; }
-            if( cellBoard[ cell.x+1 ][ cell.y-1 ].alive ) { aliveN++; }
-
-            // line of cell
-
-            if( cellBoard[ cell.x-1 ][ cell.y ].alive ) { aliveN++; }
-            //if( cellBoard[ cell.x ][ cell.y ] ) ....cell
-            if( cellBoard[ cell.x+1 ][ cell.y ].alive ) { aliveN++; }
-
-            // line below of cell
-
-            if( cellBoard[ cell.x-1 ][ cell.y+1 ].alive ) { aliveN++; }
-            if( cellBoard[ cell.x ][ cell.y+1 ].alive ) { aliveN++; }
-            if( cellBoard[ cell.x+1 ][ cell.y+1 ].alive ) { aliveN++; }
-
-            return aliveN;
-          }
 
           /// returns a vector with only cells alive
           std::vector<Celula> getAlive();
+
+          /// return a Cell of cellBoard
+          life::Celula getCell(int x, int y);
+
+          /// return the width of cellBoard (withtout dead boundary)
+          int getWidth();
+
+          /// return the heigth of cellBoard (withtout dead boundary)
+          int getHeigth();
 
 
           /// update cellBoard
           // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
           // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
-          void evolve(std::vector<Celula> toAlter);
+          void evolve( life::SimulationState state );
 
           /// assignment operator
           LifeConfig& operator=(const LifeConfig & other);
@@ -108,7 +84,26 @@ namespace life
           /// Friend functions
 
           /// operator << to print a LifeConfig istance
-          friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard );
+          friend std::ostream& life::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
+          {
+              // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
+              for( int i = 1; i < lifeBoard.heigth-1; i++ )
+              {
+                  for( int j = 1; j < lifeBoard.width-1; j++ )
+                  {
+                      if( lifeBoard.cellBoard[i][j].alive )
+                      {
+                          os << "*";
+                      }
+                      else
+                      {
+                          os << ".";
+                      }
+                  }
+                  os << "\n";
+              }
+              return os;
+          }
 
   };
 }
