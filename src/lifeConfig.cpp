@@ -104,7 +104,7 @@
   }
 
   /// assignment operator to set the cellBoard with a vector of alive cells
-  life::LifeConfig& life::LifeConfig::operator=(const std::vector<Celula> alives)
+  life::LifeConfig& life::LifeConfig::operator=(std::vector<life::Celula> alives)
   {
     // temp cell
     Celula tempCell;
@@ -112,9 +112,10 @@
     for( size_t i = 0; i < alives.size() ; i++ )
     {
       tempCell = alives[i];
-      this->cellBoard[ tempCell.x ][ tempCell.y ].x = tempCell.x;
-      this->cellBoard[ tempCell.x ][ tempCell.y ].y = tempCell.y;
-      this->cellBoard[ tempCell.x ][ tempCell.y ].alive = tempCell.alive;
+      std::cout << tempCell << " AQUI" << std::endl;
+      cellBoard[ tempCell.x ][ tempCell.y ].x = tempCell.x; // Está dando erro nessa linha, mas não faz sentido
+      cellBoard[ tempCell.x ][ tempCell.y ].y = tempCell.y;
+      cellBoard[ tempCell.x ][ tempCell.y ].alive = tempCell.alive;
     }
       return *this;
   }

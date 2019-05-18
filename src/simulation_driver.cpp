@@ -3,16 +3,17 @@
 #include "../include/lifeSimulation.h"
 
 
+
 int main( int argc, char * argv[] )
 {
+  /*
   life::LifeSimulation simulation;
   life::SimulationState state;
 
-  state.currentGeneration = 0;
 
   // Set up simulation
   simulation.initialize( argc, argv );
-  /*
+
   // Initial message
   simulation.render( state );
 
@@ -66,60 +67,47 @@ int main( int argc, char * argv[] )
   // Teste serios
 
   life::LifeConfig vida(10,10);
+  life::LifeSimulation mySim(vida);
+
   std::vector< life::Celula> deadCells;
-
-  life::Celula mortinha;
-  mortinha.alive = false;
-  // preencher o tabuleiro com celulas mortas
-  for(int i = 0; i < 10 ; i++)
-  {
-    for(int j = 0; j < 10 ; j++)
-    {
-      mortinha.x = i;
-      mortinha.y = j;
-
-      deadCells.push_back(mortinha);
-    }
-  }
-
-  // definir uma configuração para começar a simulação (o operator=(vector<Celula>) faz isso), aqui deve compensar o dead boundary
-  std::vector< life::Celula> aliveCells;
-
-  life::Celula vivinha;
-  vivinha.alive = true;
-  vivinha.y = 5;
-  // vou colocar uma coluna inteira só de vivas;
+  int itc = 0;
+  // preencher o tabuleiro com celulas vivas
   for(int i = 1; i < 11 ; i++)
   {
-    vivinha.x = i;
-    aliveCells.push_back(vivinha);
+      life::Celula mortinha(i,5,true);
+      deadCells.push_back(mortinha);
+      std::cout << deadCells[itc] << std::endl;
+      itc++;
   }
+  std::cout << deadCells.size() << std::endl;
 
-  //Seta a configuração
-  vida = aliveCells;
+  vida = deadCells;
 
   std::cout << vida << std::endl;
 
   std::cout << "*************************************************************************************************" << std::endl;
 
-
+  /*
   //lifeSimulation
-  life::LifeSimulation mySim(vida); // só o fato de criar esta istancia está dando o erro "double free or corruption"
 
+
+  std::vector<life::Celula> v;
+  //state.cellChanges = v;
   // tem que reservar um espaço no vector
-  state.cellChanges.reserve(100); // não presta mesmo assim, mas passando o vector pro process_events() como parametro funciona
+  //state.cellChanges.reserve(100); // não presta mesmo assim, mas passando o vector pro process_events() como parametro funciona
+  //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
 
-  std::vector<life::Celula> cellsChange(100);
-  mySim.process_events( state );
+  //mySim.process_events( state );
 
-  state.cellChanges = cellsChange;
-  std::cout << cellsChange[0].x << " ," << cellsChange[0].y << std::endl;
-  std::cout << cellsChange.size() << std::endl;
-  mySim.update( state );
+  //std::cout << state.cellChanges.size() << std::endl;
+  //std::cout << state.cellChanges[1].x << " ," << state.cellChanges[1].y << std::endl;
 
-  std::cout << vida << std::endl;
+  //mySim.update( state );
+
+  //std::cout << vida << std::endl;
 
   std::cout << "oi de novo" << std::endl;
+  */
 
   return EXIT_SUCCESS;
 

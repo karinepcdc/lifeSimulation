@@ -95,33 +95,37 @@
   }
 
   /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
-  void life::LifeSimulation::process_events( life::SimulationState state )
+  void life::LifeSimulation::process_events( life::SimulationState &state )
   {
 
     //clear the vector of cells that will change
     state.cellChanges.clear();
     //cellChanges.clear();
+    life::Celula * willChange = new life::Celula[ this->life.getWidth() * this->life.getHeigth() ];
+    life::Celula * it = willChange;
+    int addedCells = 0;
 
-
-    int acs = 0;
-
-    for( int i = 1; i <= life.getHeigth() ; i++ )
+    // search cells that will change and add to willChange vector
+    for( int i = 1; i <= this->life.getHeigth() ; i++ )
     {
 
-      for( int j = 1; j <= life.getWidth() ; j++ )
+      for( int j = 1; j <= this->life.getWidth() ; j++ )
       {
         // temp Cell
-        life::Celula tempCell = life.getCell(i,j);
+        life::Celula tempCell = this->life.getCell(i,j);
 
         std::cout << "testando" << std::endl;
         if( tempCell.alive )
         {
           // if tempCell have 0 or 1 alive neighbor, or 4 or more neighbors alive, will die
-          if( life.getAliveNeighbors( i, j ) <= 1 || life.getAliveNeighbors( i, j ) >= 4)
+          if( this->life.getAliveNeighbors( i, j ) <= 1 || this->life.getAliveNeighbors( i, j ) >= 4)
           {
             //state.cellChanges.push_back(tempCell);
-            state.cellChanges[acs] = tempCell;
-            acs++;
+            //willChange.push_back( tempCell );
+            //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
+            *it = tempCell;
+            it++;
+            addedCells++;
           }
           // else, will stay alive
         }
@@ -129,17 +133,32 @@
         else
         {
           // if tempCell have 3 alive neighbors, will live
-          if( life.getAliveNeighbors( i, j ) == 3 )
+          if( this->life.getAliveNeighbors( i, j ) == 3 )
           {
             //state.cellChanges.push_back(tempCell);
-            state.cellChanges[acs] = tempCell;
-            acs++;
+            //willChange.push_back( tempCell );
+            //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
+            *it = tempCell;
+            it++;
+            addedCells++;
           }
           // else, will stay dead
         }
       }
     }
 
+    // add the cells that will change on vector of state O JEITO QUE DEU CERTO (POR ALGUMA RAZAO NAO CONSIGO USAR O push_back LA EM CIMA)
+    for(int i = 0; i < addedCells; i++)
+    {
+      state.cellChanges.push_back( willChange[i] );
+      std::cout << state.cellChanges[i].x << ", " << state.cellChanges[i].y  << std::endl;
+    }
+
+    std::cout << "OI CHEGUEI AQUI" << std::endl;
+
+    delete [] willChange;
+
+    std::cout << "OI CHEGUEI AQUI" << std::endl;
   }
 
   /// Atualiza o ecosistema baseado nas decisões do process_events

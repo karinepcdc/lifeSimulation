@@ -40,7 +40,7 @@ namespace life
     void initialize( int argc, char *argv[] );
 
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
-    void process_events( life::SimulationState state );
+    void process_events( life::SimulationState &state );
 
     /// Atualiza o ecosistema baseado nas decisões do process_events
     void update( SimulationState state);

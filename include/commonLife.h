@@ -39,6 +39,18 @@ namespace life {
         return *this;
       }
 
+      /// operator << to print a cell
+      friend std::ostream& life::operator<<( std::ostream& os, const Celula& cell )
+      {
+          std::string alive = "false";
+          if(cell.alive)
+          {
+            alive = "true";
+          }
+          os << "x: " << cell.x << ", y: " << cell.y << ", alive?: " << alive;
+          return os;
+      }
+
   };
 
   typedef struct Options
@@ -54,7 +66,8 @@ namespace life {
   } Options;
 
 
-  typedef struct SimulationState_t{
+  typedef struct SimulationState_t
+  {
     int currentGeneration; // number of current generation
     std::vector< Celula > cellChanges; // vector with cell that will change state
 
