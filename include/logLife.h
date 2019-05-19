@@ -11,12 +11,16 @@ namespace life
         /// vector of alive cells vector
         std::vector< std::vector<life::Celula> > logData;
 
+        /// return true if, and only if, genetarions are equal
+        bool compareGenerations( std::vector< life::Celula > &v1, std::vector< life::Celula > &v2 );
 
       public:
 
         // default constructor;
         LogLife()
-        { /* empty */}
+        {
+        logData.reserve(100); // não sei se adianta
+        }
 
         ~LogLife()
         {

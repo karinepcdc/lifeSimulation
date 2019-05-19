@@ -114,15 +114,12 @@
         // temp Cell
         life::Celula tempCell = this->life.getCell(i,j);
 
-        std::cout << "testando" << std::endl;
         if( tempCell.alive )
         {
           // if tempCell have 0 or 1 alive neighbor, or 4 or more neighbors alive, will die
           if( this->life.getAliveNeighbors( i, j ) <= 1 || this->life.getAliveNeighbors( i, j ) >= 4)
           {
             //state.cellChanges.push_back(tempCell);
-            //willChange.push_back( tempCell );
-            //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
             *it = tempCell;
             it++;
             addedCells++;
@@ -136,8 +133,6 @@
           if( this->life.getAliveNeighbors( i, j ) == 3 )
           {
             //state.cellChanges.push_back(tempCell);
-            //willChange.push_back( tempCell );
-            //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
             *it = tempCell;
             it++;
             addedCells++;
@@ -151,14 +146,14 @@
     for(int i = 0; i < addedCells; i++)
     {
       state.cellChanges.push_back( willChange[i] );
-      std::cout << state.cellChanges[i].x << ", " << state.cellChanges[i].y  << std::endl;
+      //std::cout << state.cellChanges[i].x << ", " << state.cellChanges[i].y  << std::endl;
     }
 
-    std::cout << "OI CHEGUEI AQUI" << std::endl;
+    //std::cout << "OI CHEGUEI AQUI" << std::endl;
 
     delete [] willChange;
 
-    std::cout << "OI CHEGUEI AQUI" << std::endl;
+    //std::cout << "OI CHEGUEI AQUI" << std::endl;
   }
 
   /// Atualiza o ecosistema baseado nas decisões do process_events
@@ -167,7 +162,21 @@
     // update
     life.evolve( state );
 
+    // add generation on loglife data
+    log.push_back( life.getAlive() );
+
     // next generation
     state.currentGeneration += 1;
 
+  }
+
+  /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção) // isStable() NÃO ESTÁ FUNCIONANDO, VER NO loglife.cpp
+  bool life::LifeSimulation::gameover()
+  {
+
+    if(  life.extinct() )//|| log.isStable() )
+    {
+    return true;
+    }
+    return false;
   }

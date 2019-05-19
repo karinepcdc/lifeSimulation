@@ -25,7 +25,16 @@
   /// return a Cell of cellBoard
   life::Celula life::LifeConfig::getCell(int x, int y)
   {
-    return cellBoard[x][y];
+    life::Celula cell = this->cellBoard[x][y];
+    return cell;
+  }
+
+  /// set a cell in cellBoard
+  void life::LifeConfig::setCell( life::Celula cell )
+  {
+    this->cellBoard[ cell.x ][ cell.y ].x = cell.x;
+    this->cellBoard[ cell.x ][ cell.y ].y = cell.y;
+    this->cellBoard[ cell.x ][ cell.y ].alive = cell.alive;
   }
 
   /// return the width of cellBoard (withtout dead boundary)
@@ -61,7 +70,7 @@
   bool life::LifeConfig::extinct()
   {
     // vector with only cells alive of this cell board
-    std::vector<Celula> cellsAlive = this->getAlive();
+    std::vector< life::Celula > cellsAlive = getAlive();
 
     if(cellsAlive.size() == 0)
     {
@@ -69,6 +78,7 @@
     }
     return false;
   }
+
 
   /// returns the number of neighbors alives of Celula cell
   int life::LifeConfig::getAliveNeighbors(int x, int y)
@@ -112,7 +122,6 @@
     for( size_t i = 0; i < alives.size() ; i++ )
     {
       tempCell = alives[i];
-      std::cout << tempCell << " AQUI" << std::endl;
       cellBoard[ tempCell.x ][ tempCell.y ].x = tempCell.x; // Está dando erro nessa linha, mas não faz sentido
       cellBoard[ tempCell.x ][ tempCell.y ].y = tempCell.y;
       cellBoard[ tempCell.x ][ tempCell.y ].alive = tempCell.alive;

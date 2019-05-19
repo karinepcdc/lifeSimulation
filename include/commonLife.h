@@ -8,7 +8,7 @@
 
 namespace life {
 
-  class Celula
+  typedef struct Celula
   {
     public:
 
@@ -17,19 +17,6 @@ namespace life {
       int y;
       bool alive;
 
-      /// default constructor
-      Celula(int x=0, int y=0, bool alive=false):
-        x{x}, y{y}, alive{alive}
-      { /* empty */}
-
-      /// copy constructor
-      Celula( const Celula& other ):
-        x{other.x}, y{other.y}, alive{other.alive}
-      { /* empty */ }
-
-      /// default destructor
-      ~Celula()
-      {/* empty? */}
 
       Celula& operator =(const Celula& a)
       {
@@ -37,6 +24,16 @@ namespace life {
         y = a.y;
         alive = a.alive;
         return *this;
+      }
+
+      /// operator == to compare cells
+      bool operator==(const Celula& other) const
+      {
+        if( (x == other.x) && (y == other.y) && (alive == other.alive) )
+        {
+          return true;
+        }
+        return false;
       }
 
       /// operator << to print a cell
@@ -51,7 +48,8 @@ namespace life {
           return os;
       }
 
-  };
+
+  } Celula;
 
   typedef struct Options
   {

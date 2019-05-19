@@ -6,25 +6,51 @@
 
 int main( int argc, char * argv[] )
 {
-  /*
-  life::LifeSimulation simulation;
+
+  life::LifeConfig vida(20,20);
+  life::LogLife log;
+  life::LifeSimulation mySim(vida,log); // CAUSA DO ERRO DE MEMÓRIA
   life::SimulationState state;
 
 
+  state.currentGeneration = 0;
+
+  std::vector< life::Celula> deadCells;
+  int itc = 0;
+  // preencher o tabuleiro com celulas vivas
+  for(int i = 1; i < 11 ; i++)
+  {
+      life::Celula mortinha;
+      mortinha.x = i;
+      mortinha.y = 5;
+      mortinha.alive = true;
+
+      deadCells.push_back(mortinha);
+      //std::cout << deadCells[itc] << std::endl;
+      itc++;
+  }
+  std::cout << deadCells.size() << std::endl;
+
+  vida = deadCells;
+
   // Set up simulation
-  simulation.initialize( argc, argv );
+  //mySim.initialize( argc, argv );
 
   // Initial message
-  simulation.render( state );
+  std::cout << vida << std::endl;
+
 
   // The simulation loop
-  while( not simulation.game_over( state ) ){
+  while(  !mySim.gameover() ){
 
-    simulation.process_events( state );
-    simulation.update( state );
-    simulation.render( state );
+    mySim.process_events( state );
+
+    mySim.update( state );
+
+    //simulation.render( state );
+    std::cout << vida << std::endl;
   }
-  */
+
 
   // testes
 
@@ -66,26 +92,54 @@ int main( int argc, char * argv[] )
 
   // Teste serios
 
-  life::LifeConfig vida(10,10);
-  life::LifeSimulation mySim(vida);
 
-  std::vector< life::Celula> deadCells;
-  int itc = 0;
-  // preencher o tabuleiro com celulas vivas
-  for(int i = 1; i < 11 ; i++)
-  {
-      life::Celula mortinha(i,5,true);
-      deadCells.push_back(mortinha);
-      std::cout << deadCells[itc] << std::endl;
-      itc++;
-  }
-  std::cout << deadCells.size() << std::endl;
 
-  vida = deadCells;
 
+
+
+
+
+  /*
   std::cout << vida << std::endl;
 
   std::cout << "*************************************************************************************************" << std::endl;
+
+
+
+  std::cout << vida << std::endl;
+
+  mySim.process_events(state);
+
+  mySim.update(state);
+
+  std::cout << "******************************************************" << std::endl;
+
+  std::cout << vida << std::endl;
+
+  mySim.process_events(state);
+
+  mySim.update(state);
+
+  std::cout << "******************************************************" << std::endl;
+
+  std::cout << vida << std::endl;
+
+  mySim.process_events(state);
+
+  mySim.update(state);
+
+  std::cout << "******************************************************" << std::endl;
+
+  std::cout << vida << std::endl;
+
+  mySim.process_events(state);
+
+  mySim.update(state);
+
+  std::cout << "******************************************************" << std::endl;
+
+  std::cout << vida << std::endl;
+  */
 
   /*
   //lifeSimulation

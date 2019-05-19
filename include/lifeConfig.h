@@ -11,7 +11,7 @@ namespace life
 
           int width;
           int heigth;
-          Celula **cellBoard;
+          life::Celula **cellBoard;
 
       public:
 
@@ -20,10 +20,10 @@ namespace life
               width{w+2}, heigth{h+2} // adding dead cell boundary
           {
               // allocate cell board
-              cellBoard = new Celula*[width];
+              cellBoard = new life::Celula*[width];
               for(int i = 0; i < width; i++)
               {
-                  cellBoard[i] = new Celula[heigth];
+                  cellBoard[i] = new life::Celula[heigth];
               }
 
               // set cells positions
@@ -58,10 +58,13 @@ namespace life
 
 
           /// returns a vector with only cells alive
-          std::vector<Celula> getAlive();
+          std::vector<life::Celula> getAlive();
 
           /// return a Cell of cellBoard
           life::Celula getCell(int x, int y);
+
+          /// set a cell in cellBoard
+          void setCell( life::Celula cell );
 
           /// return the width of cellBoard (withtout dead boundary)
           int getWidth();
@@ -79,7 +82,7 @@ namespace life
           LifeConfig& operator=(const LifeConfig & other);
 
           /// assignment operator to set the cellBoard with a vector of alive cells
-          LifeConfig& operator=(const std::vector<Celula> alives);
+          LifeConfig& operator=(const std::vector<life::Celula> alives);
 
           /// Friend functions
 

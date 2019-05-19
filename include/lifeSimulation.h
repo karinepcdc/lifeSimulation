@@ -14,8 +14,8 @@ namespace life
   {
   private:
 
-    LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    //LogLife log;        // Log das gerações
+    life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
+    life::LogLife log;        // Log das gerações
     //Options simOptions; // Opções da simulações
 
 
@@ -26,9 +26,10 @@ namespace life
     {/* empty */}
 
     /// constructor receving a lifeConfig variable
-    LifeSimulation(life::LifeConfig lf):
-      life{lf}
+    LifeSimulation(life::LifeConfig& lf, life::LogLife& lg):
+      life{lf}, log{lg}
     {/* empty */}
+
 
     /// Default destructor
     ~LifeSimulation()
@@ -49,7 +50,7 @@ namespace life
     void render( SimulationState state ) const;
 
     /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
-    bool gameover( SimulationState state ) const;
+    bool gameover();
 
   private:
 
