@@ -90,9 +90,9 @@ namespace life
           friend std::ostream& life::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
           {
               // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
-              for( int i = 1; i < lifeBoard.heigth-1; i++ )
+              for( int i = 1; i < lifeBoard.width-1; i++ )
               {
-                  for( int j = 1; j < lifeBoard.width-1; j++ )
+                  for( int j = 1; j < lifeBoard.heigth-1; j++ )
                   {
                       if( lifeBoard.cellBoard[i][j].alive )
                       {

@@ -15,7 +15,7 @@ namespace life
   private:
 
     life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    life::LogLife log;        // Log das gerações
+    life::LogLife* log;        // Log das gerações
     //Options simOptions; // Opções da simulações
 
 
@@ -27,7 +27,7 @@ namespace life
 
     /// constructor receving a lifeConfig variable
     LifeSimulation(life::LifeConfig& lf, life::LogLife& lg):
-      life{lf}, log{lg}
+      life{lf}, log{&lg}
     {/* empty */}
 
 

@@ -1,13 +1,48 @@
 #include <iostream>
 
 #include "../include/lifeSimulation.h"
+#include "../include/canvas/canvas.h"
+#include "../include/canvas/lodepng.h"
 
+/// encode Canvas to png
+void encode_png(std::string filename, const unsigned char * image, unsigned width, unsigned height)
+{
+    //Encode the image
+    unsigned error = lodepng::encode(filename, image, width, height);
 
+    //if there's an error, display it
+    if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
+}
 
+// prototipo criar imagens
+void create_image(life::Canvas& image, size_t width, size_t height, life::LifeConfig& vida, std::string filename)
+{
+  // desenhar
+  // mudar a cor das vivas
+  for(size_t a=0; a < width+2; a++)
+  {
+    for(size_t b=0; b < width+2; b++)
+    {
+      life::Celula temp = vida.getCell(a,b);
+      if(temp.alive)
+      {
+        image.pixel( life::Point2(b,a), life::RED);
+      }
+      else
+      {
+        image.pixel( life::Point2(b,a), life::YELLOW);
+      }
+    }
+  }
+  // salvar imagem
+  encode_png(filename, image.pixels(), image.width(), image.height() );
+}
+
+/// main function
 int main( int argc, char * argv[] )
 {
 
-  life::LifeConfig vida(20,20);
+  life::LifeConfig vida(10,10);
   life::LogLife log;
   life::LifeSimulation mySim(vida,log); // CAUSA DO ERRO DE MEMÓRIA
   life::SimulationState state;
@@ -32,136 +67,57 @@ int main( int argc, char * argv[] )
   std::cout << deadCells.size() << std::endl;
 
   vida = deadCells;
+  std::cout << vida.getCell(8,6) << std::endl;
+
+  ///////////////////////////// Criar imagens /////////////////////////////
+
+  // criar Canvas w*h
+  std::string filename = "image.png";
+  int w = 10;
+  int h = 10;
+  short blocksize = 40;
+
+  life::Canvas image(w+2, h+2, blocksize);
+
+  //desenhar
+  create_image(image, w, h, vida, filename);
+  /////////////////////////////////////////////////////////////////////////
 
   // Set up simulation
   //mySim.initialize( argc, argv );
-
+  std::vector<life::Celula> vv;
   // Initial message
   std::cout << vida << std::endl;
+  // tem que add manualmente na primeira vez
+  log.push_back( vida.getAlive() );
 
-
+  int count = 1;
   // The simulation loop
-  while(  !mySim.gameover() ){
+  while(  !mySim.gameover() )
+  {
 
     mySim.process_events( state );
 
     mySim.update( state );
 
+
+    //desenhar
+    create_image(image, w, h, vida, filename);
+    //mudar nome da proxima imagem
+    std::string sc = std::to_string(count);
+    filename =  "image" + sc + ".png";
+    count++;
+
     //simulation.render( state );
     std::cout << vida << std::endl;
+    vv = vida.getAlive();
+    std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
+    std::cout << "numero de vivas: " << vv.size() << std::endl;
   }
 
-
-  // testes
-
-  /*
-  life::LifeConfig vida(5,5);
-
-  std::cout << vida << std::endl;
-
-  std::vector<life::Celula> cells(5);
-  int x = 0;
-  int y = 0;
-
-  for(int i = 0; i < 5 ; i++)
-  {
-    cells[i].x = 1;
-    cells[i].y = 1;
-    cells[i].alive = false;
-    x++;
-    y++;
-  }
-
-  life::Celula celula;
-  celula.x = 6;
-  celula.y = 6;
-  celula.alive = true;
-
-  std::cout << vida.extinct() << std::endl;
-
-  //vida.evolve(cells);
-
-  std::cout << vida << std::endl;
-
-  std::cout << vida.getAliveNeighbors(celula) << std::endl;
-
-  vida = vida.getAlive();
-
-  std::cout << vida << std::endl;
-  */
-
-  // Teste serios
+  std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;
 
 
-
-
-
-
-
-
-  /*
-  std::cout << vida << std::endl;
-
-  std::cout << "*************************************************************************************************" << std::endl;
-
-
-
-  std::cout << vida << std::endl;
-
-  mySim.process_events(state);
-
-  mySim.update(state);
-
-  std::cout << "******************************************************" << std::endl;
-
-  std::cout << vida << std::endl;
-
-  mySim.process_events(state);
-
-  mySim.update(state);
-
-  std::cout << "******************************************************" << std::endl;
-
-  std::cout << vida << std::endl;
-
-  mySim.process_events(state);
-
-  mySim.update(state);
-
-  std::cout << "******************************************************" << std::endl;
-
-  std::cout << vida << std::endl;
-
-  mySim.process_events(state);
-
-  mySim.update(state);
-
-  std::cout << "******************************************************" << std::endl;
-
-  std::cout << vida << std::endl;
-  */
-
-  /*
-  //lifeSimulation
-
-
-  std::vector<life::Celula> v;
-  //state.cellChanges = v;
-  // tem que reservar um espaço no vector
-  //state.cellChanges.reserve(100); // não presta mesmo assim, mas passando o vector pro process_events() como parametro funciona
-  //std::cout<< "OI SIZE " << state.cellChanges.size() << std::endl;
-
-  //mySim.process_events( state );
-
-  //std::cout << state.cellChanges.size() << std::endl;
-  //std::cout << state.cellChanges[1].x << " ," << state.cellChanges[1].y << std::endl;
-
-  //mySim.update( state );
-
-  //std::cout << vida << std::endl;
-
-  std::cout << "oi de novo" << std::endl;
-  */
 
   return EXIT_SUCCESS;
 

@@ -12,8 +12,12 @@
         // if the vector of alive cells at the same position on v1 and v2 are diferents, return false
         if( !(v1[i] == v2[i]) ) { return false; }
       }
+      return true;
     }
-    return true;
+    else
+    {
+      return false;
+    }
   }
 
   /// returns the number of generations saved (size of logData)
@@ -28,17 +32,17 @@
     logData.push_back( aliveCells );
   }
 
-  /// looks if the simulation are stable NÃO TÁ FUNCIONANDO, O PROBLEMA É NO VECTOR LOGDATA, ELE COMEÇA COM UM TAMANHO ABSURDO HEHE
+  /// looks if the simulation are stable 
   bool life::LogLife::isStable()
   {
-    size_t actualGeneration = logData.size() - 1;
+    size_t actualGeneration = logData.size();
     int freq = 0; // 0 ou 1?
     bool stable = false;
-    std::cout << "ACTUAL " << actualGeneration << std::endl;
     // is searched a generation equal the actual, if found, is stable
-    for( size_t i = 0; i < actualGeneration; i++ )
+    for( size_t i = 0; i < actualGeneration-1; i++ )
     {
-      if( compareGenerations( logData[i], logData[ actualGeneration ] ) )
+      //std::cout << "CHEGUEI AQUI " << actualGeneration << std::endl;
+      if( compareGenerations( logData[i], logData[ actualGeneration-1 ] ) )
       {
         stable = true;
       }
@@ -50,6 +54,8 @@
     }
     if( stable )
     {
+      freq = freq - 2;
+      std::cout << "SIMULAÇÃO ESTAVEL!\nCOM FREQUENCIA: " << freq << std::endl;
       return true;
     }
     std::cout << actualGeneration << std::endl;

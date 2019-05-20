@@ -106,10 +106,10 @@
     int addedCells = 0;
 
     // search cells that will change and add to willChange vector
-    for( int i = 1; i <= this->life.getHeigth() ; i++ )
+    for( int i = 1; i <= this->life.getWidth() ; i++ )
     {
 
-      for( int j = 1; j <= this->life.getWidth() ; j++ )
+      for( int j = 1; j <= this->life.getHeigth() ; j++ )
       {
         // temp Cell
         life::Celula tempCell = this->life.getCell(i,j);
@@ -159,22 +159,23 @@
   /// Atualiza o ecosistema baseado nas decisões do process_events
   void life::LifeSimulation::update( SimulationState state )
   {
+
     // update
     life.evolve( state );
 
     // add generation on loglife data
-    log.push_back( life.getAlive() );
+    log->push_back( life.getAlive() );
 
     // next generation
     state.currentGeneration += 1;
 
   }
 
-  /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção) // isStable() NÃO ESTÁ FUNCIONANDO, VER NO loglife.cpp
+  /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
   bool life::LifeSimulation::gameover()
   {
 
-    if(  life.extinct() )//|| log.isStable() )
+    if(  life.extinct() || log->isStable() )
     {
     return true;
     }

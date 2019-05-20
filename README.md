@@ -17,8 +17,8 @@ Etapas:
 
 3º - Fazer o initialize() e o struct options()
 
-4º - fazer o process_events() e update
+4º - fazer o process_events() e update // Confere
 
-5º - fazer render() textual e gameover()
+5º - fazer render() textual e gameover() // Confere
 
 6º - fazer render() gráfico
