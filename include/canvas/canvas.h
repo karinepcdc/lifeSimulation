@@ -124,7 +124,7 @@ namespace life {
             {
 
             }
-
+	    
         private:
             size_t m_width;    //!< The image width in pixel units.
             size_t m_height;   //!< The image height in pixel units.

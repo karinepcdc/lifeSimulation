@@ -1,5 +1,44 @@
 #include "../include/lifeSimulation.h"
 
+
+// não consegui fazer funcionar
+life::Color strToColor( const std::string color )
+{
+  
+  if( color == "BLACK" ){
+    return life::Color {0,0,0};
+  }
+
+  /*else if ( color == "WHITE" ){
+    return Color{255,255,255};
+    } else if ( color == "DARK_GREEN" ){
+    return Color{0,100,0};
+    } else if ( color == "GREEN" ){
+    return Color{0,250,0};
+    } else if ( color == "RED" ){
+    return Color{255,0,0};
+    } else if ( color == "CRIMSON" ){
+    return Color{220,20,60};
+    } else if ( color == "LIGHT_BLUE" ){
+    return Color{135,206,250};
+    } else if ( color == "LIGHT_GREY" ){
+    return Color{210,210,210};
+    } else if ( color == "DEEP_SKY_BLUE" ){
+    return Color{0,191,255};
+    } else if ( color == "DODGER_BLUE" ){
+    return Color{30,144,255};
+    } else if ( color == "STEEL_BLUE" ){
+    return Color{70,130,180};
+    } else if ( color == "YELLOW" ){
+    return Color{255,255,0};
+    } else if ( color == "LIGHT_YELLOW" ){
+    return Color{255,255,153};
+    } else {
+       
+    throw std::invalid_argument("--Invalid color. Check '--help' to see available palette.");
+    }*/
+}
+
 void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
   {
 
@@ -43,7 +82,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
   		<< " WHITE YELLOW\n"
   		<< std::endl;
 
-      } else if( option == "--imgdir"){
+      } else if( option == "--imgdir"){ /********* OPTION **********/
 
         if (i + 1 < argc) { // Make sure we aren't at the end of argv!
 	  
@@ -55,7 +94,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	  throw std::invalid_argument("--destination option requires one argument.");
         }
 
-      } else if( option == "--maxgen"){
+      } else if( option == "--maxgen"){ /********* OPTION **********/
 
 	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
 	  
@@ -67,20 +106,67 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	  throw std::invalid_argument("--destination option requires one argument.");
         }
 	
-      } else if( option == "--fps"){
+      } else if( option == "--fps"){ /********* OPTION **********/
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option	  
+	  state.simOptions.fps = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
 
+      } else if( option == "--blocksize"){ /********* OPTION **********/
 
-      } else if( option == "--blocksize"){
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option	  
+	  state.simOptions.blocksize = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
+	
+      } else if( option == "--bkgcolor"){ /********* OPTION **********/
 
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option
+	  // 1st - Convert c-string to cpp-std::string; 2nd - Convert cpp-std::string to life::color;
+	  //state.simOptions.bkgcolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
+	  state.simOptions.bkgcolor = std::string ( argv[++i] );// Increment 'i' to get the next argument in argv[i].
+	  
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
 
-      } else if( option == "--bkgcolor"){
+      } else if( option == "--alivecolor"){ /********* OPTION **********/
 
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option	  
+	  state.simOptions.alivecolor = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
+	
+      } else if( option == "--outfile"){ /********* OPTION **********/
 
-      } else if( option == "--alivecolor"){
-
-
-      } else if( option == "--outfile"){
-
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option	  
+	  state.simOptions.outfile = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
 
       }
 

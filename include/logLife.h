@@ -1,3 +1,6 @@
+#ifndef LOGLIFE_H
+#define LOGLIFE_H
+
 #include "commonLife.h"
 #include <iostream>
 #include <vector>
@@ -39,3 +42,5 @@ namespace life
         //bool operator==();
   };
 }
+
+#endif

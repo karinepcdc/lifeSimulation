@@ -57,8 +57,8 @@ namespace life {
     int maxgen;              //!< Maximum number of generations to simulate
     int fps;                 //!< Number of generations presented per second
     int blocksize;           //!< Pixel size of a cell
-    Color bkgcolor;          //!< Background color ?????????? check
-    Color alivecolor;        //!< alive cells color ????????? check
+    std::string bkgcolor;    //!< Background color 
+    std::string alivecolor;  //!< Name of alive cells color 
     std::string outfile;     //!< text representation file
 
   } Options;
@@ -71,6 +71,7 @@ namespace life {
     Options simOptions; // Option chosen by user
 
   } SimulationState;
-}
+
+} //end life namespace;
 
 #endif

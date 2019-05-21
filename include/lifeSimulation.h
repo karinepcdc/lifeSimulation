@@ -1,6 +1,8 @@
+#ifndef LIFESIM_H
+#define LIFESIM_H
+
 #include <string>
 #include <iostream>
-
 
 #include "commonLife.h"
 #include "lifeConfig.h"
@@ -64,3 +66,5 @@ namespace life
 
 
 }
+
+#endif

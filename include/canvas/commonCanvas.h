@@ -3,6 +3,7 @@
 
 #include <cstring> // memset, memcpy
 #include <iostream>
+#include <string>
 
 namespace life {
    /// Represents a Pixel coordinate
@@ -63,6 +64,7 @@ namespace life {
        {
            return not std::memcmp( channels, rhs.channels, sizeof(color_t)*3 );
        }
+     
    };
 
    /*
@@ -78,13 +80,17 @@ namespace life {
    static const Color RED           = Color{255,0,0}    ; //!< Red.
    static const Color CRIMSON       = Color{220,20,60}  ; //!< Crimson (kind of red).
    static const Color LIGHT_BLUE    = Color{135,206,250}; //!< Light blue.
-   static const Color LIGHT_GREY    = Color{210,210,210}; //!< Light blue.
+   static const Color LIGHT_GREY    = Color{210,210,210}; //!< Light grey.
    static const Color DEEP_SKY_BLUE = Color{0,191,255}  ; //!< Deep blue.
    static const Color DODGER_BLUE   = Color{30,144,255} ; //!< Another bluish color.
    static const Color STEEL_BLUE    = Color{70,130,180} ; //!< Yet another bluish color.
    static const Color YELLOW        = Color{255,255,0}  ; //!< Yellow.
    static const Color LIGHT_YELLOW  = Color{255,255,153}; //!< Light yellow.
 
+  //enum palette { BLACK, WHITE, DARK_GREEN, GREEN, RED, CRIMSON, LIGHT_BLUE, LIGHT_GREY,
+  //		  DEEP_SKY_BLUE, DODGER_BLUE, STEEL_BLUE, YELLOW, LIGHT_YELLOW };
+   
+   
 } // namespace
 
 #endif // COMMON_H

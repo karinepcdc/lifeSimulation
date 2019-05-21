@@ -92,6 +92,9 @@ void life::Canvas::pixel( const life::Point2& p,  const life::Color& color )
 
 }
 
+
+
+
 /*
 life::Color life::Canvas::pixel( const life::Point2& ) const
 {
@@ -113,5 +116,5 @@ void life::Canvas::pblock(const life::Point2 &p, size_t width, size_t height, co
 
 }
 
-
 */
+

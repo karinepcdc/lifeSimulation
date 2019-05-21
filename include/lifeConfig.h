@@ -1,3 +1,6 @@
+#ifndef LIFECONFIG_H
+#define LIFECONFIG_H
+
 #include "commonLife.h"
 #include <iostream>
 #include <vector>
@@ -110,3 +113,5 @@ namespace life
 
   };
 }
+
+#endif
