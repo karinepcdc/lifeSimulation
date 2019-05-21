@@ -84,7 +84,12 @@ int main( int argc, char * argv[] )
   /////////////////////////////////////////////////////////////////////////
 
   // Set up simulation
-  //mySim.initialize( argc, argv );
+  mySim.initialize( argc, argv, state );
+
+  //std::cout << "imgdir: " << state.simOptions.imgdir << "\n" << std::endl;
+  std::cout << "maxgen: " << state.simOptions.maxgen << "\n" << std::endl;
+  
+  
   std::vector<life::Celula> vv;
   // Initial message
   std::cout << vida << std::endl;
@@ -109,10 +114,10 @@ int main( int argc, char * argv[] )
     count++;
 
     //simulation.render( state );
-    std::cout << vida << std::endl;
+    //std::cout << vida << std::endl;
     vv = vida.getAlive();
-    std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
-    std::cout << "numero de vivas: " << vv.size() << std::endl;
+    //std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
+    //std::cout << "numero de vivas: " << vv.size() << std::endl;
   }
 
   std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;

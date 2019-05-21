@@ -1,6 +1,6 @@
 #include "../include/lifeSimulation.h"
 
-  void life::LifeSimulation::initialize( int argc, char *argv[] )
+void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
   {
 
     // welcome message
@@ -18,7 +18,7 @@
     }
 
     // Read game options
-    std::string option, destination;
+    std::string option;
 
     int i=1;
     while( i < argc-1 ){
@@ -46,16 +46,27 @@
       } else if( option == "--imgdir"){
 
         if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-  	destination = argv[i++]; // Increment 'i' so we don't get the argument as the next argv[i].
+	  
+	  // preencher struct option	  
+	  state.simOptions.imgdir = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
+	  
         } else { // Uh-oh, there was no argument to the destination option.
-  	throw std::invalid_argument("--destination option requires one argument.");
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
         }
 
-        // preencher struct option
-
       } else if( option == "--maxgen"){
-        //usar atoi ou opção que fiz em search project... qual melhor?
 
+	if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+	  
+	  // preencher struct option	  
+	  state.simOptions.maxgen = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
+	  
+        } else { // Uh-oh, there was no argument to the destination option.
+	  
+	  throw std::invalid_argument("--destination option requires one argument.");
+        }
+	
       } else if( option == "--fps"){
 
 

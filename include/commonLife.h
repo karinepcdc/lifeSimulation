@@ -68,6 +68,7 @@ namespace life {
   {
     int currentGeneration; // number of current generation
     std::vector< Celula > cellChanges; // vector with cell that will change state
+    Options simOptions; // Option chosen by user
 
   } SimulationState;
 }

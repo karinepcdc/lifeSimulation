@@ -38,7 +38,7 @@ namespace life
     }
 
     /// Initialize simulation with a welcome menssage; Read and register game options and process some of them; Load initial configuration;
-    void initialize( int argc, char *argv[] );
+    void initialize( int argc, char *argv[], life::SimulationState &state );
 
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
     void process_events( life::SimulationState &state );
