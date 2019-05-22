@@ -1,8 +1,8 @@
 #include "../include/lifeConfig.h"
 
-  ////////////// não sei pq nao ta dando certo
 
-  /// returns a vector with only cells alive
+
+
   std::vector<life::Celula> life::LifeConfig::getAlive()
   {
     std::vector<life::Celula> cellsAlive;
@@ -22,14 +22,14 @@
     return cellsAlive;
   }
 
-  /// return a Cell of cellBoard
+
   life::Celula life::LifeConfig::getCell(int x, int y)
   {
     life::Celula cell = this->cellBoard[x][y];
     return cell;
   }
 
-  /// set a cell in cellBoard
+
   void life::LifeConfig::setCell( life::Celula cell )
   {
     this->cellBoard[ cell.x ][ cell.y ].x = cell.x;
@@ -49,24 +49,22 @@
     return heigth-2;
   }
 
-  /// update cellBoard
-  // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
-  // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
+
   void life::LifeConfig::evolve( life::SimulationState state )
   {
     Celula cellAux;
     for(size_t i = 0; i < state.cellChanges.size() ; i++)
     {
         cellAux = state.cellChanges[i];
-        // x and y are shifted to compensate for dead cell boundery
+        // x and y are shifted to compensate for dead cell boundery: NO MORE, THE INITIALIZE MUST COMPENSATE
         cellBoard[cellAux.x][cellAux.y].x = cellAux.x;
-        cellBoard[cellAux.x][cellAux.y+1].y = cellAux.y;
+        cellBoard[cellAux.x][cellAux.y].y = cellAux.y;
         // change alive status
         cellBoard[cellAux.x][cellAux.y].alive = !cellAux.alive;
     }
   }
 
-  /// returns true if not exist any cell alive, else returns false
+
   bool life::LifeConfig::extinct()
   {
     // vector with only cells alive of this cell board
@@ -80,7 +78,7 @@
   }
 
 
-  /// returns the number of neighbors alives of Celula cell
+
   int life::LifeConfig::getAliveNeighbors(int x, int y)
   {
     int aliveN = 0;
@@ -103,7 +101,7 @@
     return aliveN;
   }
 
-  /// assignment operator
+
   life::LifeConfig& life::LifeConfig::operator=(const life::LifeConfig & other)
   {
       this->width = other.width;
@@ -113,7 +111,7 @@
       return *this;
   }
 
-  /// assignment operator to set the cellBoard with a vector of alive cells
+  
   life::LifeConfig& life::LifeConfig::operator=(std::vector<life::Celula> alives)
   {
     // temp cell

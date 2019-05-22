@@ -93,7 +93,7 @@ int main( int argc, char * argv[] )
   std::cout << "bkgcolor: " << state.simOptions.bkgcolor << "\n" << std::endl;
   std::cout << "alivecolor: " << state.simOptions.alivecolor << "\n" << std::endl;
   std::cout << "outfile: " << state.simOptions.outfile << "\n" << std::endl;
-  
+
   std::vector<life::Celula> vv;
   // Initial message
   std::cout << vida << std::endl;
@@ -118,7 +118,7 @@ int main( int argc, char * argv[] )
     count++;
 
     //simulation.render( state );
-    //std::cout << vida << std::endl;
+    std::cout << vida << std::endl;
     vv = vida.getAlive();
     //std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
     //std::cout << "numero de vivas: " << vv.size() << std::endl;

@@ -11,7 +11,7 @@ namespace life
   class LifeConfig
   {
       private:
-
+          /// LifeConfig data
           int width;
           int heigth;
           life::Celula **cellBoard;
@@ -19,6 +19,12 @@ namespace life
       public:
 
           /// default constructor
+          /**
+          * Constructor thats create the cells board of width * height size
+          *
+          * @param w: width
+          * @param h: heigth
+          */
           LifeConfig(int w = 0, int h = 0):
               width{w+2}, heigth{h+2} // adding dead cell boundary
           {
@@ -52,44 +58,102 @@ namespace life
               delete cellBoard;
           }
 
-          /// returns true if not exist any cell alive, else returns false
+          /// checks if the generation are extinct
+          /**
+          * Checks if don't have any cell alive
+          *
+          * return true if extinct
+          */
           bool extinct();
 
 
-          /// returns the number of neighbors alives of Celula cell
+          /// checks the number of alive neighbors of the cell
+          /**
+          * Checks the number of alive neighbors of the cell in x,y position
+          *
+          * @param x: position x of the cell
+          * @param y: position y of the cell
+          *
+          * return a int, that is the number of alive neighbors
+          */
           int getAliveNeighbors(int x, int y);
 
 
-          /// returns a vector with only cells alive
+          /// Get alive cells
+          /**
+          * Checks the alive cells of the cellBoard
+          *
+          * return a vector of cells alive
+          */
           std::vector<life::Celula> getAlive();
 
-          /// return a Cell of cellBoard
+          /// Get cell
+          /**
+          * Get a copy of the cell in x,y position in cellBoard
+          *
+          * @param x: position x of the cell
+          * @param y: position y of the cell
+          *
+          * return the cell;
+          */
           life::Celula getCell(int x, int y);
 
-          /// set a cell in cellBoard
+          /// set cell
+          /**
+          * Set a cell in cell board
+          *
+          * @param cell: cell to add to cell board
+          */
           void setCell( life::Celula cell );
 
-          /// return the width of cellBoard (withtout dead boundary)
+          /// Get Width
+          /**
+          * return the width of cell board
+          */
           int getWidth();
 
-          /// return the heigth of cellBoard (withtout dead boundary)
+          /// Get Heigth
+          /**
+          * return the heigth of cell board
+          */
           int getHeigth();
 
 
-          /// update cellBoard
-          // TALVEZ NÃO TENHA QUE SOMAR 1 NAS POSICOES (DEPENDE DE COMO O process_events VAI FAZER)
-          // SE A FUNÇÃO QUE LÊ DO ARQUIVO DE ENTRADA COMPENSAR ESTE 1 NA HORA DE DEFINIR O TABULEIRO AQUI, NÃO VAI PRECISAR COMPENSAR MAIS EM QUALQUER LUGAR
+          /// Evolve to next generation
+          /**
+          * Envolve the generation changing cells in vector of state
+          *
+          * @param state: Simulation state that contains the vector of cells that must die or live
+          */
           void evolve( life::SimulationState state );
 
           /// assignment operator
+          /**
+          * Copys other LifeConfig
+          *
+          * @param other: LifeConfig that will be copied
+          * return a reference to this LifeConfig
+          */
           LifeConfig& operator=(const LifeConfig & other);
 
           /// assignment operator to set the cellBoard with a vector of alive cells
+          /**
+          * Change this cellBoard adding alives cells
+          *
+          * @param alives:: vector of alive cells
+          * return a reference to this LifeConfig
+          */
           LifeConfig& operator=(const std::vector<life::Celula> alives);
 
           /// Friend functions
 
           /// operator << to print a LifeConfig istance
+          /**
+          * Prints the generation (cellBoard)
+          *
+          * @param os: output
+          * @param lifeBoard: LifeConfig that will be printed out
+          */
           friend std::ostream& life::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
           {
               // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier

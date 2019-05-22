@@ -1,6 +1,6 @@
 #include "../include/logLife.h"
 
-  /// return true if, and only if, genetarions are equal
+
   bool life::LogLife::compareGenerations( std::vector< life::Celula > &v1, std::vector< life::Celula > &v2 )
   {
     // looks if the size of both are equals
@@ -20,19 +20,19 @@
     }
   }
 
-  /// returns the number of generations saved (size of logData)
+
   size_t life::LogLife::size()
   {
     return logData.size();
   }
 
-  /// adds a generation in logData
+
   void life::LogLife::push_back(std::vector< life::Celula > aliveCells)
   {
     logData.push_back( aliveCells );
   }
 
-  /// looks if the simulation are stable 
+  
   bool life::LogLife::isStable()
   {
     size_t actualGeneration = logData.size();
