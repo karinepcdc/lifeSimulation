@@ -18,14 +18,21 @@ namespace life
 
       public:
 
-          /// default constructor
-          /**
-          * Constructor thats create the cells board of width * height size
+          /// Default constructor: criate a empty cell board
+	  LifeConfig(){
+	      width=0;
+	      heigth=0;
+	      cellBoard = nullptr;
+	  }
+
+          /// Parameter initialization constructor
+                /**
+          * Constructor thats create the cell board of width * height size
           *
           * @param w: width
           * @param h: heigth
           */
-          LifeConfig(int w = 0, int h = 0):
+          LifeConfig(int w, int h):
               width{w+2}, heigth{h+2} // adding dead cell boundary
           {
               // allocate cell board
@@ -118,6 +125,11 @@ namespace life
           */
           int getHeigth();
 
+          /// Reset cell board
+          /**
+          * return the cell board pointer of pointers
+          */
+          int resetCellboard( life::Celula** &newcellBoard  );
 
           /// Evolve to next generation
           /**

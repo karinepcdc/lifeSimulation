@@ -187,15 +187,29 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	if( configFile.fail() ){	   
 	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
 	}// pode tratar exceção assim 1????????
-
 	
 	// Reading configuration file
 	std::string line;
-
+	
+	int w, h;
+	char ch;
 	getline(configFile, line); // read boad size <nLin> <nCol>
+	std::stringstream lineStr(line);
+	lineStr >> w >> h >> std::ws;
+	std::cout << w << " " << h  << std::endl;
+
+
+	// Alocate initial lifeconfig cellboard
 
 	getline(configFile, line); // read char representing alive cell
-
+	lineStr << line;
+	lineStr >> std::skipws >> ch >> std::ws;
+	  
+	std::cout << ch << " deu!"<< std::endl;
+	
+	
+	std::cout << line << std::endl;
+	
 	while( getline(configFile, line) ){ 
 	    std::cout << line << std::endl;
 	    
@@ -206,7 +220,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 
 
-	// instancia a lifeconfig
+	
 
 	// instancia loglife e registra primeiro log
 
@@ -297,9 +311,9 @@ void life::LifeSimulation::update( SimulationState state )
 bool life::LifeSimulation::gameover()
 {
 
-    if(  life.extinct() || log->isStable() )
-	{
-	    return true;
-	}
+    if(  life.extinct() || log->isStable() ) {
+      return true;
+    }
+    
     return false;
 }

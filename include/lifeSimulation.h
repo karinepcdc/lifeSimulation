@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <fstream> // file manipulation
+#include <sstream> // string stream
 
 #include "commonLife.h"
 #include "lifeConfig.h"

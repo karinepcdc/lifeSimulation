@@ -31,7 +31,7 @@
 
 
   void life::LifeConfig::setCell( life::Celula cell )
-  {
+  { 
     this->cellBoard[ cell.x ][ cell.y ].x = cell.x;
     this->cellBoard[ cell.x ][ cell.y ].y = cell.y;
     this->cellBoard[ cell.x ][ cell.y ].alive = cell.alive;
