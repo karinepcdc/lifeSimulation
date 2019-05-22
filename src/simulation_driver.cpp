@@ -105,9 +105,9 @@ int main( int argc, char * argv[] )
   while(  !mySim.gameover() )
   {
 
-    mySim.process_events( state );
+    //mySim.process_events( state );
 
-    mySim.update( state );
+    //mySim.update( state );
 
 
     //desenhar
@@ -118,7 +118,7 @@ int main( int argc, char * argv[] )
     count++;
 
     //simulation.render( state );
-    std::cout << vida << std::endl;
+    //std::cout << vida << std::endl;
     vv = vida.getAlive();
     //std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
     //std::cout << "numero de vivas: " << vv.size() << std::endl;

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream> // file manipulation
 
 #include "commonLife.h"
 #include "lifeConfig.h"
