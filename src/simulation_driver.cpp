@@ -20,7 +20,7 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
   // mudar a cor das vivas
   for(size_t a=0; a < width+2; a++)
   {
-    for(size_t b=0; b < width+2; b++)
+    for(size_t b=0; b < height+2; b++)
     {
       life::Celula temp = vida.getCell(a,b);
       if(temp.alive)
@@ -41,7 +41,7 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
 int main( int argc, char * argv[] )
 {
 
-  life::LifeConfig vida(10,10);
+  life::LifeConfig vida(20,10);
   life::LogLife log;
   life::LifeSimulation mySim(vida,log); // CAUSA DO ERRO DE MEMÓRIA
   life::SimulationState state;
@@ -65,6 +65,7 @@ int main( int argc, char * argv[] )
   }
   std::cout << deadCells.size() << std::endl;
 
+  // setando primeira configuraçao
   vida = deadCells;
   std::cout << vida.getCell(8,6) << std::endl;
 
@@ -72,7 +73,7 @@ int main( int argc, char * argv[] )
 
   // criar Canvas w*h
   std::string filename = "image.png";
-  int w = 10;
+  int w = 20;
   int h = 10;
   short blocksize = 40;
 
@@ -102,26 +103,27 @@ int main( int argc, char * argv[] )
 
   int count = 1;
   // The simulation loop
+
   while(  !mySim.gameover() )
   {
 
-    //mySim.process_events( state );
+    mySim.process_events( state );
 
-    //mySim.update( state );
+    mySim.update( state );
 
 
     //desenhar
-    create_image(image, w, h, vida, filename);
+    //create_image(image, w, h, vida, filename);
     //mudar nome da proxima imagem
-    std::string sc = std::to_string(count);
-    filename =  "image" + sc + ".png";
-    count++;
+    //std::string sc = std::to_string(count);
+    //filename =  "image" + sc + ".png";
+    //count++;
 
     //simulation.render( state );
-    //std::cout << vida << std::endl;
-    vv = vida.getAlive();
-    //std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
-    //std::cout << "numero de vivas: " << vv.size() << std::endl;
+    std::cout << vida << std::endl;
+    //vv = vida.getAlive();
+    std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
+    std::cout << "numero de vivas: " << vv.size() << std::endl;
   }
 
   std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;

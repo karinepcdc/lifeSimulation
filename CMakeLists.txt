@@ -10,7 +10,7 @@ set (CMAKE_CXX_STANDARD 14)
 
 #=== SETTING VARIABLES ===#
 # Compiling flags
-set( GCC_COMPILE_FLAGS "-Wall" )
+set( GCC_COMPILE_FLAGS "-Wall -g" )
 set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS} ${PREPROCESSING_FLAGS}" )
 
 #Include dir

@@ -23,7 +23,7 @@ namespace life {
       *
       * @param a: other cell
       *
-      * returns a reference to this cell
+      * @returns a reference to this cell
       */
       Celula& operator =(const Celula& a)
       {
@@ -39,7 +39,7 @@ namespace life {
       *
       * @param other: other cell
       *
-      * returns true if the cells are equals
+      * @returns true if the cells are equals
       */
       bool operator==(const Celula& other) const
       {
@@ -57,7 +57,7 @@ namespace life {
       * @param os: output
       * @param cell: the cell that will be printed out
       *
-      * returns the output
+      * @returns the output
       */
       friend std::ostream& operator<<( std::ostream& os, const Celula& cell )
       {

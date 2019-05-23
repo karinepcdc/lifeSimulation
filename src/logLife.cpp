@@ -58,6 +58,6 @@
       std::cout << "SIMULAÇÃO ESTAVEL!\nCOM FREQUENCIA: " << freq << std::endl;
       return true;
     }
-    std::cout << actualGeneration << std::endl;
+    
     return false;
   }

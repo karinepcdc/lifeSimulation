@@ -93,7 +93,7 @@ namespace life
     /*
      * Checks if the game over, looking if the generations are stable or extinct
      *
-     * Returns true if the game over, else, returns false
+     * @Returns true if the game over, else, returns false
      */
     bool gameover();
 
