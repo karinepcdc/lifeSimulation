@@ -154,7 +154,7 @@ namespace life
           /**
           * @return the cell board pointer of pointers
           */
-          void resetCellboard( life::Celula** &newcellBoard  );
+          void resetCellboard( life::Celula** &newcellBoard, int w, int h );
 
           /// Evolve to next generation
           /**
