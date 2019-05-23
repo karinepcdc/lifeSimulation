@@ -64,7 +64,16 @@ namespace life {
        {
            return not std::memcmp( channels, rhs.channels, sizeof(color_t)*3 );
        }
-     
+
+       /// operator << to print the color in console
+       friend std::ostream& operator<<( std::ostream& os, const Color& color )
+       {
+           os << "Tentando imprimir alguma cor";
+           os << "\n";
+
+           return os;
+       }
+
    };
 
    /*
@@ -89,8 +98,8 @@ namespace life {
 
   //enum palette { BLACK, WHITE, DARK_GREEN, GREEN, RED, CRIMSON, LIGHT_BLUE, LIGHT_GREY,
   //		  DEEP_SKY_BLUE, DODGER_BLUE, STEEL_BLUE, YELLOW, LIGHT_YELLOW };
-   
-   
+
+
 } // namespace
 
 #endif // COMMON_H
