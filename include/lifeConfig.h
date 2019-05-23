@@ -69,7 +69,7 @@ namespace life
           /**
           * Checks if don't have any cell alive
           *
-          * return true if extinct
+          * @return true if extinct
           */
           bool extinct();
 
@@ -81,7 +81,7 @@ namespace life
           * @param x: position x of the cell
           * @param y: position y of the cell
           *
-          * return a int, that is the number of alive neighbors
+          * @return a int, that is the number of alive neighbors
           */
           int getAliveNeighbors(int x, int y);
 
@@ -90,7 +90,7 @@ namespace life
           /**
           * Checks the alive cells of the cellBoard
           *
-          * return a vector of cells alive
+          * @return a vector of cells alive
           */
           std::vector<life::Celula> getAlive();
 
@@ -101,7 +101,7 @@ namespace life
           * @param x: position x of the cell
           * @param y: position y of the cell
           *
-          * return the cell;
+          * @return the cell;
           */
           life::Celula getCell(int x, int y);
 
@@ -133,7 +133,7 @@ namespace life
 
 	  /// Return the heigth of cellBoard (withtout dead boundary)1??????????
           /**
-          * \return the heigth of cell board
+          * @return the heigth of cell board
           */
           int getHeigth()
 	  {
@@ -143,7 +143,7 @@ namespace life
 
 	  /// Set heigth
           /**
-          * \param h the heigth of cell board
+          * @param h the heigth of cell board
           */
           void setHeigth( int h ){
 	    heigth = h;
@@ -152,7 +152,7 @@ namespace life
 
           /// Reset cell board
           /**
-          * \return the cell board pointer of pointers
+          * @return the cell board pointer of pointers
           */
           int resetCellboard( life::Celula** &newcellBoard  );
 
@@ -169,7 +169,7 @@ namespace life
           * Copys other LifeConfig
           *
           * @param other: LifeConfig that will be copied
-          * return a reference to this LifeConfig
+          * @return a reference to this LifeConfig
           */
           LifeConfig& operator=(const LifeConfig & other);
 
@@ -178,7 +178,7 @@ namespace life
           * Change this cellBoard adding alives cells
           *
           * @param alives:: vector of alive cells
-          * return a reference to this LifeConfig
+          * @return a reference to this LifeConfig
           */
           LifeConfig& operator=(const std::vector<life::Celula> alives);
 

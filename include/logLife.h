@@ -23,7 +23,7 @@ namespace life
         *
         * Checks if the two vector of alives cells (generations) are indentics
         *
-        * Returns true if the vectors are indentics
+        * @Returns true if the vectors are indentics
         */
         bool compareGenerations( std::vector< life::Celula > &v1, std::vector< life::Celula > &v2 );
 
@@ -45,7 +45,7 @@ namespace life
         /**
         * Looks the size of the log
         *
-        * Returns the size of the log
+        * @Returns the size of the log
         */
         size_t size();
 
@@ -63,7 +63,7 @@ namespace life
         * Checks if the simulation are stable comparing each generation saved
         * in log with the actual generation (last saved in log)
         *
-        * Returns true if are stable
+        * @Returns true if are stable
         */
         bool isStable();
 
