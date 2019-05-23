@@ -37,19 +37,6 @@
     this->cellBoard[ cell.x ][ cell.y ].alive = cell.alive;
   }
 
-  /// return the width of cellBoard (withtout dead boundary)
-  int life::LifeConfig::getWidth()
-  {
-    return width-2;
-  }
-
-  /// return the heigth of cellBoard (withtout dead boundary)
-  int life::LifeConfig::getHeigth()
-  {
-    return heigth-2;
-  }
-
-
   void life::LifeConfig::evolve( life::SimulationState state )
   {
     Celula cellAux;

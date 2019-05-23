@@ -59,7 +59,7 @@ namespace life {
       *
       * returns the output
       */
-      friend std::ostream& life::operator<<( std::ostream& os, const Celula& cell )
+      friend std::ostream& operator<<( std::ostream& os, const Celula& cell )
       {
           std::string alive = "false";
           if(cell.alive)
@@ -83,6 +83,7 @@ namespace life {
     std::string bkgcolor;    //!< Background color
     std::string alivecolor;  //!< Name of alive cells color
     std::string outfile;     //!< text representation file
+    char char_alive;         //!< char representing alive cell 
 
   } Options;
 

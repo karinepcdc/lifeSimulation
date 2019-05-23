@@ -192,31 +192,48 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	std::string line;
 	
 	int w, h;
-	char ch;
 	getline(configFile, line); // read boad size <nLin> <nCol>
 	std::stringstream lineStr(line);
-	lineStr >> w >> h >> std::ws;
-	std::cout << w << " " << h  << std::endl;
+	lineStr >> h >> w >> std::ws; // tá invertido 2???????
+	life.setWidth(w+2); // add dead boundary
+	life.setHeigth(h+2); // add dead boundary
 
+	//std::cout << w << " " << h << std::endl;
+	//std::cout << life.getWidth() << " " << life.getHeigth() << std::endl;
 
 	// Alocate initial lifeconfig cellboard
+	life::Celula **init_board = new life::Celula*[ life.getWidth() ];
+	for(int j = 0; j < life.getWidth(); j++){
+	  init_board[j] = new life::Celula[ life.getHeigth() ];
+	}
 
 	getline(configFile, line); // read char representing alive cell
-	lineStr << line;
-	lineStr >> std::skipws >> ch >> std::ws;
-	  
-	std::cout << ch << " deu!"<< std::endl;
+	state.simOptions.char_alive = line[0];
+	//std::cout << line[0] << " = " << state.simOptions.char_alive << "?"<< std::endl;
 	
-	
-	std::cout << line << std::endl;
-	
+	i=0; // line number
 	while( getline(configFile, line) ){ 
-	    std::cout << line << std::endl;
+	  //std::cout << "\nfull line: " << line << std::endl;
+	  
+	  int j=0; // col number
+	  while( line[j] != '\0' && j < life.getWidth()-2 ){
+
+	    if( line[j] == state.simOptions.char_alive ){
+	      std::cout << "(" << i << " " << j << ")";	 
+	    } else {
+	      std::cout << "0";	 
+	    }
+	    j++;
 	    
-	    // Load initial configuration;
+	  }
+	  i++;
+	  std::cout << "\n";	 
+	  if( i >= life.getHeigth()-2 ){ break; } // read only cellboard size
+	  // Load initial configuration;
 	}
     
 	// Process game options
+	// print everything
 
 
 

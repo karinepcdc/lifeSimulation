@@ -43,7 +43,7 @@ namespace life
               }
 
               // set cells positions
-              for(int i = 0; i < width; i++)
+              for(int i = 0; i < width; i++) ///////// invertido???
               {
                   for(int j = 0; j < heigth; j++)
                   {
@@ -113,21 +113,46 @@ namespace life
           */
           void setCell( life::Celula cell );
 
-          /// Get Width
+          /// return the width of cellBoard (withtout dead boundary)2???????????
           /**
-          * return the width of cell board
+          * \return the width of cell board
           */
-          int getWidth();
+          int getWidth( void )
+	  {
+	    return width;
+	  }
 
-          /// Get Heigth
+	  /// Set Width
           /**
-          * return the heigth of cell board
+          * \param w the new width of cell board
           */
-          int getHeigth();
+          void setWidth( int w )
+	  {
+	    width = w;
+	  }
+
+	  /// Return the heigth of cellBoard (withtout dead boundary)1??????????
+          /**
+          * \return the heigth of cell board
+          */
+          int getHeigth()
+	  {
+	    return heigth;
+	  }
+
+
+	  /// Set heigth
+          /**
+          * \param h the heigth of cell board
+          */
+          void setHeigth( int h ){
+	    heigth = h;
+	  }
+
 
           /// Reset cell board
           /**
-          * return the cell board pointer of pointers
+          * \return the cell board pointer of pointers
           */
           int resetCellboard( life::Celula** &newcellBoard  );
 
@@ -166,7 +191,7 @@ namespace life
           * @param os: output
           * @param lifeBoard: LifeConfig that will be printed out
           */
-          friend std::ostream& life::operator<<( std::ostream& os, const LifeConfig& lifeBoard )
+          friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard )
           {
               // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
               for( int i = 1; i < lifeBoard.width-1; i++ )
