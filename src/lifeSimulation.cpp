@@ -49,12 +49,11 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	      << " ***********************************\n\n"
 	      << " >>> Rules:\n\n"
 	      << " >>> use option '--help' to display options.\n\n"
-	      << " >>> Ps: Configuration file must be provided at dir: 'SimulationLife/data/'."
 	      << " ***********************************\n\n"
 	      << std::endl;
 
     if( argc < 2 ){
-	throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
+	throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file>.");
 
     }
 
@@ -199,9 +198,8 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 	// If file fail to open throw expetion
 	if( configFile.fail() ){
-	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
+	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file>.");
 	}
-
 
 	
 	// Reading configuration file
@@ -268,15 +266,39 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
         configFile.close();
 	  
 	// Process game options
-	// print everything
+	std::cout << "\n\n *** Starting simulation *** \n\n"
+		  << " *Simulation parameters* \n"
+		  << " Cell board size: " <<  life.getHeigth()-2
+		  << " x " << life.getWidth()-2 << "\n";
+	
+	if( state.simOptions.maxgen == 0 ){
+	    std::cout << " No generation limit set.\n";
+	} else {
+	    std::cout << " Max generation: " << state.simOptions.maxgen << "\n";
+	}
 
-
-		
-
-
-	// instancia loglife e registra primeiro log
-
-
+	std::cout << "\n *Image generation parameters* \n";
+	if( state.simOptions.imgdir == "" ){
+	    std::cout << "\n>>> Printing in console.\n"
+		      << "    Figures per second: " << state.simOptions.fps << "\n";
+	} else {
+	    std::cout << "\n>>> Printing graphic images. \n"
+		      << "    Image will be saved at: " <<  state.simOptions.imgdir << "\n"
+	    	      << "    Block size: " <<  state.simOptions.blocksize << "\n"
+		      << "    Dead cell color: " << state.simOptions.bkgcolor << "\n"
+		      << "    Alive cell color: " <<  state.simOptions.alivecolor << "\n";
+	    
+	}
+	
+	if( state.simOptions.outfile != "" ){
+	    std::cout << "Printing in text file. \n"
+		      << "Image will be saved at: " <<  state.simOptions.outfile << "\n"
+		      << "Char representing alive cells: " << state.simOptions.char_alive;
+	}
+	std::cout << std::endl;    
+	       
+	//  Registra primeiro loglife
+	log->push_back( life.getAlive() );
 
 
 }
@@ -335,11 +357,8 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 		//std::cout << state.cellChanges[i].x << ", " << state.cellChanges[i].y  << std::endl;
 	    }
 
-	//std::cout << "OI CHEGUEI AQUI" << std::endl;
-
 	delete [] willChange;
 
-	//std::cout << "OI CHEGUEI AQUI" << std::endl;
     }
 
 /// Atualiza o ecosistema baseado nas decisões do process_events
@@ -366,4 +385,12 @@ bool life::LifeSimulation::gameover()
     }
 
     return false;
+}
+
+
+void life::LifeSimulation::render( SimulationState state ) const
+{
+
+
+
 }

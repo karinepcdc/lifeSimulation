@@ -55,15 +55,6 @@ int main( int argc, char * argv[] )
   // Set up simulation
   mySim.initialize( argc, argv, state );
 
-  std::cout << "imgdir: " << state.simOptions.imgdir << "\n" << std::endl;
-  std::cout << "maxgen: " << state.simOptions.maxgen << "\n" << std::endl;
-  std::cout << "fps: " << state.simOptions.fps << "\n" << std::endl;
-  std::cout << "blocksize: " << state.simOptions.blocksize << "\n" << std::endl;
-  //std::cout << "bkgcolor: " << life::BLACK.channels[0] << " ." << state.simOptions.bkgcolor.channels[1] << ". " << state.simOptions.bkgcolor.channels[3] << "\n" << std::endl;
-  std::cout << "bkgcolor: " << state.simOptions.bkgcolor << "\n" << std::endl;
-  std::cout << "alivecolor: " << state.simOptions.alivecolor << "\n" << std::endl;
-  std::cout << "outfile: " << state.simOptions.outfile << "\n" << std::endl;
-
 
   ///////////////////////////// Criar imagens /////////////////////////////
 
@@ -76,10 +67,6 @@ int main( int argc, char * argv[] )
 
   
   std::vector<life::Celula> vv;
-  // Initial message
-  //std::cout << mySim.life << std::endl;
-  // tem que add manualmente na primeira vez
-  mySim.log->push_back( mySim.life.getAlive() );
 
   int count = 1;
   // The simulation loop

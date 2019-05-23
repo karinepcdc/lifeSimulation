@@ -32,14 +32,12 @@ namespace life
         /// default constructor;
         LogLife()
         {
-        logData.reserve(100); // não sei se adianta
+	  logData.reserve(1); 
         }
 
-        /// destructor
+        /// Loglife destructor
         ~LogLife()
-        {
-          
-        }
+	 { /*Empty*/ }
 
         /// returns the number of generations saved (size of logData)
         /**
