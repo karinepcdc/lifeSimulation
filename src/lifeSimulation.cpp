@@ -1,41 +1,41 @@
 #include "../include/lifeSimulation.h"
+#include "../include/canvas/commonCanvas.h"
 
 
-// não consegui fazer funcionar
 life::Color strToColor( const std::string color )
 {
-  
+
     if( color == "BLACK" ){
-	return life::Color {0,0,0};
+	return life::BLACK;
     }
 
-    /*else if ( color == "WHITE" ){
-      return Color{255,255,255};
+    else if ( color == "WHITE" ){
+      return life::WHITE;
       } else if ( color == "DARK_GREEN" ){
-      return Color{0,100,0};
+      return life::DARK_GREEN;
       } else if ( color == "GREEN" ){
-      return Color{0,250,0};
+      return life::GREEN;
       } else if ( color == "RED" ){
-      return Color{255,0,0};
+      return life::RED;
       } else if ( color == "CRIMSON" ){
-      return Color{220,20,60};
+      return life::CRIMSON;
       } else if ( color == "LIGHT_BLUE" ){
-      return Color{135,206,250};
+      return life::LIGHT_BLUE;
       } else if ( color == "LIGHT_GREY" ){
-      return Color{210,210,210};
+      return life::LIGHT_GREY;
       } else if ( color == "DEEP_SKY_BLUE" ){
-      return Color{0,191,255};
+      return life::DEEP_SKY_BLUE;
       } else if ( color == "DODGER_BLUE" ){
-      return Color{30,144,255};
+      return life::DODGER_BLUE;
       } else if ( color == "STEEL_BLUE" ){
-      return Color{70,130,180};
+      return life::STEEL_BLUE;
       } else if ( color == "YELLOW" ){
-      return Color{255,255,0};
+      return life::YELLOW;
       } else if ( color == "LIGHT_YELLOW" ){
-      return Color{255,255,153};
-      }*/
+      return life::LIGHT_YELLOW;
+      }
     else {
-       
+
 	throw std::invalid_argument("--Invalid color. Check '--help' to see available palette.");
     }
 }
@@ -87,86 +87,87 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	    } else if( option == "--imgdir"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
+
+		    // fill struct option
 		    state.simOptions.imgdir = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
-	  
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
 
 	    } else if( option == "--maxgen"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
+
+		    // fill struct option
 		    state.simOptions.maxgen = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
-	  
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
-	
+
 	    } else if( option == "--fps"){ /********* OPTION **********/
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
+
+		    // fill struct option
 		    state.simOptions.fps = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
-	  
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
 
 	    } else if( option == "--blocksize"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
+
+		    // fill struct option
 		    state.simOptions.blocksize = std::atoi ( argv[++i] ) ; // Increment 'i' to get the next argument in argv[i].
-	  
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
-	
+
 	    } else if( option == "--bkgcolor"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
+
 		    // fill struct option
 		    // 1st - Convert c-string to cpp-std::string; 2nd - Convert cpp-std::string to life::color;
-		    //state.simOptions.bkgcolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
-		    state.simOptions.bkgcolor = std::string ( argv[++i] );// Increment 'i' to get the next argument in argv[i].
-	  
-	  
+		    state.simOptions.bkgcolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
+		    //state.simOptions.bkgcolor = std::string ( argv[++i] );// Increment 'i' to get the next argument in argv[i].
+
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
 
 	    } else if( option == "--alivecolor"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
-		    state.simOptions.alivecolor = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
-	  
+
+		    // fill struct option
+		    //state.simOptions.alivecolor = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
+        state.simOptions.alivecolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
-	
+
 	    } else if( option == "--outfile"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-	  
-		    // fill struct option	  
+
+		    // fill struct option
 		    state.simOptions.outfile = std::string ( argv[++i] ) ;// Increment 'i' to get the next argument in argv[i].
-	  
+
 		} else { // Uh-oh, there was no argument to the destination option.
-	  
+
 		    throw std::invalid_argument("--destination option requires one argument.");
 		}
 
@@ -180,17 +181,17 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	std::string fileName{"../data/"};
 	std::string configFileName = std::string ( argv[i] );
 	fileName.std::string::append(configFileName);
-    
+
 	// Open configuration file
 	std::ifstream configFile;
 	configFile.open( fileName.c_str() );
-	if( configFile.fail() ){	   
+	if( configFile.fail() ){
 	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
 	}// pode tratar exceção assim 1????????
-	
+
 	// Reading configuration file
 	std::string line;
-	
+
 	int w, h;
 	char ch;
 	getline(configFile, line); // read boad size <nLin> <nCol>
@@ -204,27 +205,27 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	getline(configFile, line); // read char representing alive cell
 	lineStr << line;
 	lineStr >> std::skipws >> ch >> std::ws;
-	  
+
 	std::cout << ch << " deu!"<< std::endl;
-	
-	
+
+
 	std::cout << line << std::endl;
-	
-	while( getline(configFile, line) ){ 
+
+	while( getline(configFile, line) ){
 	    std::cout << line << std::endl;
-	    
+
 	    // Load initial configuration;
 	}
-    
+
 	// Process game options
 
 
 
-	
+
 
 	// instancia loglife e registra primeiro log
 
-	
+
 	// closing file
         configFile.close();
 
@@ -314,6 +315,6 @@ bool life::LifeSimulation::gameover()
     if(  life.extinct() || log->isStable() ) {
       return true;
     }
-    
+
     return false;
 }
