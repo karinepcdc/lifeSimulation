@@ -38,7 +38,7 @@
   }
 
 
-void life::LifeConfig::resetCellboard( life::Celula** &newcellBoard  )
+void life::LifeConfig::resetCellboard( life::Celula** &newcellBoard, int w, int h )
 {
   
   // clean current cell board
@@ -49,7 +49,9 @@ void life::LifeConfig::resetCellboard( life::Celula** &newcellBoard  )
 
   // cellBoar receives new cellBoard
   cellBoard = newcellBoard;
-
+  width=w;
+  heigth=h;
+  
 }
 
 

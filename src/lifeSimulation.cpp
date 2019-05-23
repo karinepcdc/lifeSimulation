@@ -42,24 +42,24 @@ life::Color strToColor( const std::string color )
 
 void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
 {
-
+    
     // welcome message
     std::cout << " ***********************************\n"
-	<< " *** Welcome to life Simulation! ***\n"
-	<< " ***********************************\n\n"
-	<< " >>> Rules:\n\n"
-	<< " >>> use option '--help' to display options.\n\n"
-	<< " >>> Ps: Configuration file must be provided at dir: 'SimulationLife/data/'."
-	<< " ***********************************\n\n"
-	<< std::endl;
+	      << " *** Welcome to life Simulation! ***\n"
+	      << " ***********************************\n\n"
+	      << " >>> Rules:\n\n"
+	      << " >>> use option '--help' to display options.\n\n"
+	      << " >>> Ps: Configuration file must be provided at dir: 'SimulationLife/data/'."
+	      << " ***********************************\n\n"
+	      << std::endl;
 
-	   if( argc < 2 ){
-	       throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
+    if( argc < 2 ){
+	throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file> \n Ps: Configuration file should be at dir: 'SimulationLife/data/'.");
 
-	   }
+    }
 
 
-	   // definied default game option
+    // definied default game option
 	   state.simOptions.imgdir = "";     
 	   state.simOptions.maxgen = 0;     
 	   state.simOptions.fps = 2;        
@@ -211,18 +211,20 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	getline(configFile, line); // read boad size <nLin> <nCol>
 	std::stringstream lineStr(line);
 	lineStr >> h >> w >> std::ws; 
-	life.setWidth(w+2); // add dead boundary
-	life.setHeigth(h+2); // add dead boundary
+	h += 2; // add dead boundary
+	w += 2; // add dead boundary
+	//life.setWidth(w+2); // add dead boundary
+	//life.setHeigth(h+2); // add dead boundary
 
 	// Alocate initial lifeconfig cellboard
-	life::Celula **init_board = new life::Celula*[ life.getWidth() ];
-	for(int j = 0; j < life.getWidth(); j++){
-	  init_board[j] = new life::Celula[ life.getHeigth() ];
+	life::Celula **init_board = new life::Celula*[ w ];
+	for(int j = 0; j < w; j++){
+	  init_board[j] = new life::Celula[ h ];
 	}
 
 	// Initialize cellboard with deadcells only
-	for(int i = 0; i < life.getWidth(); i++) {
-	  for(int j = 0; j < life.getHeigth(); j++) {
+	for(int i = 0; i < w; i++) {
+	  for(int j = 0; j < h; j++) {
 		init_board[i][j].x = i;
 		init_board[i][j].y = j;
 		init_board[i][j].alive = false;
@@ -230,7 +232,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	  }
 
 	// reset current life cellboard to new cellboard
-	life.resetCellboard( init_board );
+	life.resetCellboard( init_board, w, h );
 
 	
 	// read char representing alive cell
