@@ -364,7 +364,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
     }
 
 /// Atualiza o ecosistema baseado nas decisões do process_events
-void life::LifeSimulation::update( SimulationState state )
+void life::LifeSimulation::update( SimulationState &state )
 {
 
     // update
@@ -375,18 +375,28 @@ void life::LifeSimulation::update( SimulationState state )
 
     // next generation
     state.currentGeneration += 1;
-
+	std::cout << "SAIr " << state.currentGeneration << std::endl;
 }
 
 /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
-bool life::LifeSimulation::gameover()
+bool life::LifeSimulation::gameover( SimulationState &state )
 {
+	if( state.simOptions.maxgen != 0)
+	{
+		if( state.currentGeneration >= state.simOptions.maxgen )
+		{
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		if(  life.extinct() || log->isStable() ) {
+		return true;
+		}
 
-    if(  life.extinct() || log->isStable() ) {
-      return true;
-    }
-
-    return false;
+		return false;
+	}
 }
 
 

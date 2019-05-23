@@ -74,7 +74,7 @@ namespace life
      *  Calls the methodo of LifeConfig evolve() to change the state of the cells
      *  ,add the cew generation in the log and sum 1 to state.currentGeneration
      */
-    void update( SimulationState state);
+    void update( SimulationState &state);
 
     /// printout the state of simulation
     /**
@@ -82,7 +82,7 @@ namespace life
     *
     * @param state: state of simulation
     */
-    void render( SimulationState state ) const;
+    void render( SimulationState &state ) const;
 
     /// Checks if the game over
     /*
@@ -90,7 +90,7 @@ namespace life
      *
      * @Returns true if the game over, else, returns false
      */
-    bool gameover();
+    bool gameover( SimulationState &state );
 
   private:
 
