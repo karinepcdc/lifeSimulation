@@ -99,6 +99,7 @@ int main( int argc, char * argv[] )
     std::cout << mySim.life << std::endl;
     //vv = vida.getAlive();
     std::cout << "GERAÇÃO ATUAL: " << mySim.log->size() << std::endl;
+    std::cout << "GERAÇÃO ATUAL STATE: " << state.currentGeneration << std::endl;
     //std::cout << "numero de vivas: " << vv.size() << std::endl;
 
     mySim.process_events( state );
