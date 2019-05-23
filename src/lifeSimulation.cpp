@@ -358,12 +358,22 @@ void life::LifeSimulation::update( SimulationState state )
 }
 
 /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
-bool life::LifeSimulation::gameover()
+bool life::LifeSimulation::gameover( SimulationState state )
 {
+	if( state.simOptions.maxgen != 0)
+	{
+		if( state.currentGeneration >= state.simOptions.maxgen )
+		{
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		if(  life.extinct() || log->isStable() ) {
+		return true;
+		}
 
-    if(  life.extinct() || log->isStable() ) {
-      return true;
-    }
-
-    return false;
+		return false;
+	}
 }

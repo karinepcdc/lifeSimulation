@@ -68,7 +68,7 @@ int main( int argc, char * argv[] )
   ///////////////////////////// Criar imagens /////////////////////////////
 
   // criar Canvas w*h
-  std::string filename = "image.png";
+  std::string filename = "generation1.png";
   
   short blocksize = 40;
 
@@ -81,10 +81,10 @@ int main( int argc, char * argv[] )
   // tem que add manualmente na primeira vez
   mySim.log->push_back( mySim.life.getAlive() );
 
-  int count = 1;
+  int count = 2;
   // The simulation loop
 
-  while(  !mySim.gameover() )
+  while(  !mySim.gameover( state ) )
   {
     
     //desenhar
@@ -92,7 +92,7 @@ int main( int argc, char * argv[] )
     
     //mudar nome da proxima imagem
     std::string sc = std::to_string(count);
-    filename =  "image" + sc + ".png";
+    filename =  "generation" + sc + ".png";
     count++;
 
     //simulation.render( state );
@@ -104,9 +104,16 @@ int main( int argc, char * argv[] )
     mySim.process_events( state );
     
     mySim.update( state );
-
-
     
+  }
+
+  if( mySim.life.extinct())
+  {
+    //desenhar
+    create_image(image, mySim.life.getWidth(), mySim.life.getHeigth(), mySim.life, filename);
+    std::cout << mySim.life << std::endl;
+    std::cout << "GERAÇÃO ATUAL: " << mySim.log->size() << std::endl;
+    std::cout << "GERAÇÃO EXTINTA" << std::endl;
   }
 
   std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;

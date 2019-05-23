@@ -97,7 +97,7 @@ namespace life
      *
      * @Returns true if the game over, else, returns false
      */
-    bool gameover();
+    bool gameover( SimulationState state );
 
   private:
 
