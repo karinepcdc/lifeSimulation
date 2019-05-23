@@ -18,20 +18,22 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
 {
   // desenhar
   // mudar a cor das vivas
-  for(size_t a=0; a < width+2; a++)
+  std::cout << "estou aqui" << std::endl;
+  for(size_t a=0; a < width; a++)
   {
-    for(size_t b=0; b < height+2; b++)
+    for(size_t b=0; b < height; b++)
     {
       life::Celula temp = vida.getCell(a,b);
       if(temp.alive)
       {
-        image.pixel( life::Point2(b,a), life::RED);
+        image.pixel( life::Point2(a,b), life::RED);
       }
       else
       {
-        image.pixel( life::Point2(b,a), life::YELLOW);
+        image.pixel( life::Point2(a,b), life::YELLOW);
       }
     }
+    std::cout << "cheguei" << std::endl;
   }
   // salvar imagem
   encode_png(filename, image.pixels(), image.width(), image.height() );
@@ -41,47 +43,13 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
 int main( int argc, char * argv[] )
 {
 
-  life::LifeConfig vida(20,10);
+  life::LifeConfig vida;
   life::LogLife log;
   life::LifeSimulation mySim(vida,log); // CAUSA DO ERRO DE MEMÓRIA
   life::SimulationState state;
 
 
   state.currentGeneration = 0;
-
-  std::vector< life::Celula> deadCells;
-  int itc = 0;
-  // preencher o tabuleiro com celulas vivas
-  for(int i = 1; i < 11 ; i++)
-  {
-      life::Celula mortinha;
-      mortinha.x = i;
-      mortinha.y = 5;
-      mortinha.alive = true;
-
-      deadCells.push_back(mortinha);
-      //std::cout << deadCells[itc] << std::endl;
-      itc++;
-  }
-  std::cout << deadCells.size() << std::endl;
-
-  // setando primeira configuraçao
-  vida = deadCells;
-  std::cout << vida.getCell(8,6) << std::endl;
-
-  ///////////////////////////// Criar imagens /////////////////////////////
-
-  // criar Canvas w*h
-  std::string filename = "image.png";
-  int w = 20;
-  int h = 10;
-  short blocksize = 40;
-
-  life::Canvas image(w+2, h+2, blocksize);
-
-  //desenhar
-  create_image(image, w, h, vida, filename);
-  /////////////////////////////////////////////////////////////////////////
 
   // Set up simulation
   mySim.initialize( argc, argv, state );
@@ -95,6 +63,21 @@ int main( int argc, char * argv[] )
   std::cout << "alivecolor: " << state.simOptions.alivecolor << "\n" << std::endl;
   std::cout << "outfile: " << state.simOptions.outfile << "\n" << std::endl;
 
+
+  ///////////////////////////// Criar imagens /////////////////////////////
+
+  // criar Canvas w*h
+  std::string filename = "image.png";
+  
+  short blocksize = 40;
+
+  life::Canvas image(vida.getWidth(), vida.getHeigth(), blocksize);
+
+  //desenhar
+  create_image(image, vida.getWidth(), vida.getHeigth(), vida, filename);
+  /////////////////////////////////////////////////////////////////////////
+
+  
   std::vector<life::Celula> vv;
   // Initial message
   std::cout << vida << std::endl;

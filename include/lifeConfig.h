@@ -199,15 +199,15 @@ namespace life
 	      
 	      for( int i = 1; i < lifeBoard.width-1; i++ ) {
 		
-		if( lifeBoard.cellBoard[i][j].alive ) {
-		  os << "*";
-		}
-		else {
-		  os << ".";
-		}
-	      }
-	      os << "\n";
-	    }
+                if( lifeBoard.cellBoard[i][j].alive ) {
+                    os << "*";
+                }
+                else {
+                    os << ".";
+                }
+            }
+            os << "\n";
+        }
 	    return os;
           }
 
