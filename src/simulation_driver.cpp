@@ -50,8 +50,6 @@ int main( int argc, char * argv[] )
   life::SimulationState state;
 
 
-  state.currentGeneration = 0;
-
   // Set up simulation
   mySim.initialize( argc, argv, state );
 

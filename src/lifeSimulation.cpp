@@ -297,9 +297,11 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	}
 	std::cout << std::endl;    
 	       
-	//  Registra primeiro loglife
+	//  Registra primeiro loglife 
 	log->push_back( life.getAlive() );
 
+	// Update current generation
+	state.currentGeneration = 1;
 
 }
 
@@ -388,7 +390,7 @@ bool life::LifeSimulation::gameover()
 }
 
 
-void life::LifeSimulation::render( SimulationState state ) const
+void life::LifeSimulation::render( SimulationState &state ) const
 {
 
 
