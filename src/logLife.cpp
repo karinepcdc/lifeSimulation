@@ -54,7 +54,7 @@
     }
     if( stable )
     {
-      freq = freq - 2;
+      freq = freq - 1;
       std::cout << "SIMULAÇÃO ESTAVEL!\nCOM FREQUENCIA: " << freq << std::endl;
       return true;
     }

@@ -18,12 +18,13 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
 {
   // desenhar
   // mudar a cor das vivas
-  std::cout << "estou aqui - W: " << width << " H: " << height << std::endl;
+  
   for(size_t a=0; a < width; a++)
   {
     for(size_t b=0; b < height; b++)
     {
       life::Celula temp = vida.getCell(a,b);
+      
       if(temp.alive)
       {
         image.pixel( life::Point2(a,b), life::RED);
@@ -73,14 +74,10 @@ int main( int argc, char * argv[] )
 
   life::Canvas image(mySim.life.getWidth(), mySim.life.getHeigth(), blocksize);
 
-  //desenhar
-  create_image(image, mySim.life.getWidth(), mySim.life.getHeigth(), mySim.life, filename);
-  /////////////////////////////////////////////////////////////////////////
-
   
   std::vector<life::Celula> vv;
   // Initial message
-  std::cout << mySim.life << std::endl;
+  //std::cout << mySim.life << std::endl;
   // tem que add manualmente na primeira vez
   mySim.log->push_back( mySim.life.getAlive() );
 
@@ -90,23 +87,26 @@ int main( int argc, char * argv[] )
   while(  !mySim.gameover() )
   {
     
-    mySim.process_events( state );
-    
-    mySim.update( state );
-
-
     //desenhar
-    //create_image(image, w, h, vida, filename);
+    create_image(image, mySim.life.getWidth(), mySim.life.getHeigth(), mySim.life, filename);
+    
     //mudar nome da proxima imagem
-    //std::string sc = std::to_string(count);
-    //filename =  "image" + sc + ".png";
-    //count++;
+    std::string sc = std::to_string(count);
+    filename =  "image" + sc + ".png";
+    count++;
 
     //simulation.render( state );
     std::cout << mySim.life << std::endl;
     //vv = vida.getAlive();
     std::cout << "GERAÇÃO ATUAL: " << mySim.log->size() << std::endl;
     //std::cout << "numero de vivas: " << vv.size() << std::endl;
+
+    mySim.process_events( state );
+    
+    mySim.update( state );
+
+
+    
   }
 
   std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;
