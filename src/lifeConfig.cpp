@@ -37,6 +37,22 @@
     this->cellBoard[ cell.x ][ cell.y ].alive = cell.alive;
   }
 
+
+void life::LifeConfig::resetCellboard( life::Celula** &newcellBoard  )
+{
+  
+  // clean current cell board
+  for (int i = 0; i < width; i++){
+    delete [] cellBoard[i];
+  }
+  delete cellBoard;
+
+  // cellBoar receives new cellBoard
+  cellBoard = newcellBoard;
+
+}
+
+
   void life::LifeConfig::evolve( life::SimulationState state )
   {
     Celula cellAux;

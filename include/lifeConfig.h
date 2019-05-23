@@ -43,7 +43,7 @@ namespace life
               }
 
               // set cells positions
-              for(int i = 0; i < width; i++) ///////// invertido???
+              for(int i = 0; i < width; i++) 
               {
                   for(int j = 0; j < heigth; j++)
                   {
@@ -154,7 +154,7 @@ namespace life
           /**
           * \return the cell board pointer of pointers
           */
-          int resetCellboard( life::Celula** &newcellBoard  );
+          void resetCellboard( life::Celula** &newcellBoard  );
 
           /// Evolve to next generation
           /**
@@ -169,7 +169,7 @@ namespace life
           * Copys other LifeConfig
           *
           * @param other: LifeConfig that will be copied
-          * return a reference to this LifeConfig
+          * \return a reference to this LifeConfig
           */
           LifeConfig& operator=(const LifeConfig & other);
 
@@ -193,23 +193,22 @@ namespace life
           */
           friend std::ostream& operator<<( std::ostream& os, const LifeConfig& lifeBoard )
           {
-              // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
-              for( int i = 1; i < lifeBoard.width-1; i++ )
-              {
-                  for( int j = 1; j < lifeBoard.heigth-1; j++ )
-                  {
-                      if( lifeBoard.cellBoard[i][j].alive )
-                      {
-                          os << "*";
-                      }
-                      else
-                      {
-                          os << ".";
-                      }
-                  }
-                  os << "\n";
-              }
-              return os;
+	    // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
+	    
+	    for( int j = 1; j < lifeBoard.heigth-1; j++ ) {
+	      
+	      for( int i = 1; i < lifeBoard.width-1; i++ ) {
+		
+		if( lifeBoard.cellBoard[i][j].alive ) {
+		  os << "*";
+		}
+		else {
+		  os << ".";
+		}
+	      }
+	      os << "\n";
+	    }
+	    return os;
           }
 
   };
