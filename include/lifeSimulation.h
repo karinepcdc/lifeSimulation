@@ -18,12 +18,13 @@ namespace life
   {
   private:
 
-    life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    life::LogLife* log;        // Log das gerações
-    //Options simOptions; // Opções da simulações
+    
 
 
   public:
+
+    life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
+    life::LogLife* log;        // Log das gerações
 
     /// Default constructor ????????????????????? pode?
     LifeSimulation()
@@ -44,7 +45,8 @@ namespace life
     /// Default destructor
     ~LifeSimulation()
     {
-      life.~LifeConfig();
+      
+      
     }
 
     /// Initialize simulation with a welcome menssage; Read and register game options and process some of them; Load initial configuration;

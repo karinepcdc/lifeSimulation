@@ -38,7 +38,7 @@ namespace life
         /// destructor
         ~LogLife()
         {
-          logData.~vector();
+          
         }
 
         /// returns the number of generations saved (size of logData)

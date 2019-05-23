@@ -6,7 +6,6 @@
   std::vector<life::Celula> life::LifeConfig::getAlive()
   {
     std::vector<life::Celula> cellsAlive;
-
     // loop excluding dead cell boundary; i.e. interator start at 1 and end one step earlier
     for( int i = 1; i < width-1; i++ )
     {
@@ -47,10 +46,12 @@ void life::LifeConfig::resetCellboard( life::Celula** &newcellBoard, int w, int 
   }
   delete cellBoard;
 
+  
   // cellBoar receives new cellBoard
   cellBoard = newcellBoard;
   width=w;
   heigth=h;
+  
   
 }
 

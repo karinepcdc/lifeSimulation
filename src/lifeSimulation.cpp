@@ -271,7 +271,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	// print everything
 
 
-
+		
 
 
 	// instancia loglife e registra primeiro log
@@ -293,10 +293,9 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	int addedCells = 0;
 
 	// search cells that will change and add to willChange vector
-	for( int i = 1; i <= this->life.getWidth()-1 ; i++ )
+	for( int i = 1; i < this->life.getWidth()-1 ; i++ )
 	    {
-
-		for( int j = 1; j <= this->life.getHeigth()-1 ; j++ )
+		for( int j = 1; j < this->life.getHeigth()-1 ; j++ )
 		    {
 			// temp Cell
 			life::Celula tempCell = this->life.getCell(i,j);

@@ -63,6 +63,8 @@ namespace life
                   delete [] cellBoard[i];
               }
               delete cellBoard;
+
+              
           }
 
           /// checks if the generation are extinct

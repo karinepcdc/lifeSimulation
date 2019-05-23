@@ -18,7 +18,7 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
 {
   // desenhar
   // mudar a cor das vivas
-  std::cout << "estou aqui" << std::endl;
+  std::cout << "estou aqui - W: " << width << " H: " << height << std::endl;
   for(size_t a=0; a < width; a++)
   {
     for(size_t b=0; b < height; b++)
@@ -33,7 +33,7 @@ void create_image(life::Canvas& image, size_t width, size_t height, life::LifeCo
         image.pixel( life::Point2(a,b), life::YELLOW);
       }
     }
-    std::cout << "cheguei" << std::endl;
+    
   }
   // salvar imagem
   encode_png(filename, image.pixels(), image.width(), image.height() );
@@ -71,27 +71,27 @@ int main( int argc, char * argv[] )
   
   short blocksize = 40;
 
-  life::Canvas image(vida.getWidth(), vida.getHeigth(), blocksize);
+  life::Canvas image(mySim.life.getWidth(), mySim.life.getHeigth(), blocksize);
 
   //desenhar
-  create_image(image, vida.getWidth(), vida.getHeigth(), vida, filename);
+  create_image(image, mySim.life.getWidth(), mySim.life.getHeigth(), mySim.life, filename);
   /////////////////////////////////////////////////////////////////////////
 
   
   std::vector<life::Celula> vv;
   // Initial message
-  std::cout << vida << std::endl;
+  std::cout << mySim.life << std::endl;
   // tem que add manualmente na primeira vez
-  log.push_back( vida.getAlive() );
+  mySim.log->push_back( mySim.life.getAlive() );
 
   int count = 1;
   // The simulation loop
 
   while(  !mySim.gameover() )
   {
-
+    
     mySim.process_events( state );
-
+    
     mySim.update( state );
 
 
@@ -103,10 +103,10 @@ int main( int argc, char * argv[] )
     //count++;
 
     //simulation.render( state );
-    std::cout << vida << std::endl;
+    std::cout << mySim.life << std::endl;
     //vv = vida.getAlive();
-    std::cout << "GERAÇÃO ATUAL: " << log.size() << std::endl;
-    std::cout << "numero de vivas: " << vv.size() << std::endl;
+    std::cout << "GERAÇÃO ATUAL: " << mySim.log->size() << std::endl;
+    //std::cout << "numero de vivas: " << vv.size() << std::endl;
   }
 
   std::cout << "\n\nTERMINADO!!!\n\n" << std::endl;
