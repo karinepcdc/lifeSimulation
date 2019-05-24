@@ -13,15 +13,18 @@
 #include "logLife.h"
 #include "../include/canvas/canvas_Life.h"
 
+enum InitMessages { CONTINUE, HELP };
+ 
 namespace life
 {
 
+  
   /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
   class LifeSimulation
   {
   private:
-    life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    life::LogLife* log;       // Log das gerações
+    life::LifeConfig life;    //!< Ecosistema da simulação; Matriz com células vivas e mortas
+    life::LogLife* log;       //!< Log das gerações
 
   public:
 
@@ -55,9 +58,9 @@ namespace life
      *  Prints the welcome message, decides the config of the simulation
      *  looking the arguments. Read the initial configuration file and begins the simulation
      */
-    void initialize( int argc, char *argv[], life::SimulationState &state );
+    InitMessages initialize( int argc, char *argv[], life::SimulationState &state );
 
-    /// Decides the cells that will live or die
+    /// Decides whitch cells will live or die
     /**
      *  Decides the cells that will live or die in next generation
      *
@@ -107,6 +110,7 @@ namespace life
 
 
   };
+
 
 
 }

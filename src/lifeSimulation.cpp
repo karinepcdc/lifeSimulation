@@ -7,8 +7,7 @@ life::Color strToColor( const std::string color )
 
     if( color == "BLACK" ){
 	return life::BLACK;
-    }
-    else if ( color == "WHITE" ){
+    } else if ( color == "WHITE" ){
       return life::WHITE;
       } else if ( color == "DARK_GREEN" ){
       return life::DARK_GREEN;
@@ -32,32 +31,56 @@ life::Color strToColor( const std::string color )
       return life::YELLOW;
       } else if ( color == "LIGHT_YELLOW" ){
       return life::LIGHT_YELLOW;
-      }
-    else {
+      } else {
       std::cout << color << std::endl;
 	throw std::invalid_argument("--Invalid color. Check '--help' to see available palette.\nDigited color: " + color);
     }
 }
 
-void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
+InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
 {
 
     // welcome message
     std::cout << " ***********************************\n"
 	      << " *** Welcome to life Simulation! ***\n"
 	      << " ***********************************\n\n"
-	      << " >>> Rules:\n\n"
+      //	      << " >>> Rules:\n\n"
 	      << " >>> use option '--help' to display options.\n\n"
 	      << " ***********************************\n\n"
 	      << std::endl;
 
     if( argc < 2 ){
-	throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file>.");
+	throw std::invalid_argument("Expected a least one argument: .\n Usage: glife [<options>] <input_cfg_file> or glife --help.");
 
     }
 
+    // Read game options and process game options
+    std::string option;
+   
+    option = argv[1];
+ 
+    if( option == "--help"){
 
-    // definied default game option
+      std::cout << " >>> Usage: glife [<options>] <input_cfg_file> or glife --help \n\n"
+		<< " >>> Simulation options:\n\n"
+		<< " --help \t Print this help text.\n"
+		<< " --imgdir <path> \t Specify directory where output images are written to.\n"
+		<< " --maxgen <num> \t Maximum number of generations to simulate.\n"
+		<< " --fps <num> \t Number of generations presented per second.\n"
+		<< " --blocksize <num> \t Pixel size of a cell. Default = 5.\n"
+		<< " --bkgcolor \t Color name for the background. Default GREEN.\n"
+		<< " --alivecolor <color> \t Color name for representing alive cells. Default RED.\n"
+		<< " --outfile <filename> \t Write the text representation of the simulation \nto the given filename.\n\n"
+		<< " >>> Available colors are:\n\n"
+		<< " BLACK BLUE CRIMSON DARK_GREEN DEEP_SKY_BLUE DODGER_BLUE\n"
+		<< " GREEN LIGHT_BLUE LIGHT_GREY LIGHT_YELLOW RED STEEL_BLUE\n"
+		<< " WHITE YELLOW\n"
+		<< std::endl;
+
+      return HELP;
+    }
+
+           // define default game option
 	   state.simOptions.imgdir = "";
 	   state.simOptions.maxgen = 0;
 	   state.simOptions.fps = 1;
@@ -65,35 +88,14 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	   state.simOptions.bkgcolor = life::YELLOW;
 	   state.simOptions.alivecolor = life::RED;
 	   state.simOptions.outfile = "";
-	   state.simOptions.char_alive = '*';
 
-	   // Read game options
-	   std::string option;
-
+	   // process more options
 	   int i=1;
 	   while( i < argc-1 ){
 
 	     option = argv[i];
 
-	     if( option == "--help"){
-
-	       std::cout << " >>> Usage: glife [<options>] <input_cfg_file>\n\n"
-			 << " >>> Simulation options:\n\n"
-			 << " --help \t Print this help text.\n"
-			 << " --imgdir <path> \t Specify directory where output images are written to.\n"
-			 << " --maxgen <num> \t Maximum number of generations to simulate.\n"
-			 << " --fps <num> \t Number of generations presented per second.\n"
-			 << " --blocksize <num> \t Pixel size of a cell. Default = 5.\n"
-			 << " --bkgcolor \t Color name for the background. Default GREEN.\n"
-			 << " --alivecolor <color> \t Color name for representing alive cells. Default RED.\n"
-			 << " --outfile <filename> \t Write the text representation of the simulation \nto the given filename.\n\n"
-			 << " >>> Available colors are:\n\n"
-			 << " BLACK BLUE CRIMSON DARK_GREEN DEEP_SKY_BLUE DODGER_BLUE\n"
-			 << " GREEN LIGHT_BLUE LIGHT_GREY LIGHT_YELLOW RED STEEL_BLUE\n"
-			 << " WHITE YELLOW\n"
-			 << std::endl;
-
-	     } else if( option == "--imgdir"){ /********* OPTION **********/
+	     if( option == "--imgdir"){ /********* OPTION **********/
 
 		if (i + 1 < argc) { // Make sure we aren't at the end of argv!
 
@@ -197,7 +199,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 	// If file fail to open throw expetion
 	if( configFile.fail() ){
-	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file>.");
+	    throw std::invalid_argument("--Unable to open configuration file. \n Configuration file is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file> or glife --help.");
 	}
 
 
@@ -205,13 +207,12 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	std::string line;
 
 	int w, h; // temp with and height
-	getline(configFile, line); // read board size <nLin> <nCol>
-	std::stringstream lineStr(line);
+	getline( configFile, line ); // read board size <nLin> <nCol>
+	std::stringstream lineStr( line );
 	lineStr >> h >> w >> std::ws;
 	h += 2; // add dead boundary
 	w += 2; // add dead boundary
-	//life.setWidth(w+2); // add dead boundary
-	//life.setHeigth(h+2); // add dead boundary
+
 
 	// Alocate initial lifeconfig cellboard
 	life::Celula **init_board = new life::Celula*[ w ];
@@ -234,7 +235,11 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 	// read char representing alive cell
 	getline(configFile, line);
-	state.simOptions.char_alive = line[0];
+	if( line[0] == '.' ){
+	  throw std::invalid_argument("--char '.' is the default representation of dead cells. Choose another character to represent alive cells.");
+	}
+	life.setcharAliveCell(line[0]);
+	
 
 	// Read configuratio file board; get cell alives and put them in the life cell board
 	i=0; // line number
@@ -243,7 +248,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	  int j=0; // col number
 	  while( line[j] != '\0' && j < life.getWidth()-2 ){
 
-	    if( line[j] == state.simOptions.char_alive ){
+	    if( line[j] == life.getcharAliveCell() ){
 	      Celula tmp_cell;
 
 	      // set cell position and state as alive
@@ -279,7 +284,8 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	std::cout << "\n *Image generation parameters* \n";
 	if( state.simOptions.imgdir == "" ){
 	    std::cout << "\n>>> Printing in console.\n"
-		      << "    Figures per second: " << state.simOptions.fps << "\n";
+		      << "    Figures per second: " << state.simOptions.fps << "\n"
+		      << "Char representing alive cells: " << life.getcharAliveCell();
 	} else {
 	    std::cout << "\n>>> Printing graphic images. \n"
 		      << "    Image will be saved at: " <<  state.simOptions.imgdir << "\n"
@@ -292,7 +298,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	if( state.simOptions.outfile != "" ){
 	  std::cout << "Printing in text file. \n"
 		    << "Text file will be saved at: " <<  state.simOptions.outfile << "\n"
-		      << "Char representing alive cells: " << state.simOptions.char_alive;
+		    << "Char representing alive cells: " << life.getcharAliveCell();
 	}
 	std::cout << std::endl;
 
@@ -302,6 +308,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	// Update current generation
 	state.currentGeneration = 1;
 
+	return CONTINUE;
 }
 
     /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
@@ -497,7 +504,7 @@ void life::LifeSimulation::render( SimulationState &state )
     // closing file
     outputFile.close();
 
-    //state.simOptions.char_alive
+    
   }
 
 

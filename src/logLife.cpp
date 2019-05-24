@@ -47,7 +47,7 @@
         stable = true;
       }
       
-      // the freq is the distance between the found genearion and actual generation
+      // the frequency is the distance between the found generaion and actual generation
       if( stable )
       {
         frequency++;

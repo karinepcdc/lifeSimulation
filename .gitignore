@@ -37,3 +37,5 @@
 *.out
 *.app
 build/
+
+img/
