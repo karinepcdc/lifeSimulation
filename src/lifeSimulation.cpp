@@ -42,7 +42,7 @@ life::Color strToColor( const std::string color )
 
 void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationState &state )
 {
-    
+
     // welcome message
     std::cout << " ***********************************\n"
 	      << " *** Welcome to life Simulation! ***\n"
@@ -59,15 +59,15 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 
     // definied default game option
-	   state.simOptions.imgdir = "";     
-	   state.simOptions.maxgen = 0;     
-	   state.simOptions.fps = 1;        
-	   state.simOptions.blocksize = 40;  
+	   state.simOptions.imgdir = "";
+	   state.simOptions.maxgen = 0;
+	   state.simOptions.fps = 1;
+	   state.simOptions.blocksize = 40;
 	   state.simOptions.bkgcolor = life::YELLOW;
 	   state.simOptions.alivecolor = life::RED;
-	   state.simOptions.outfile = "";    
-	   state.simOptions.char_alive = '*';    
-	   
+	   state.simOptions.outfile = "";
+	   state.simOptions.char_alive = '*';
+
 	   // Read game options
 	   std::string option;
 
@@ -147,6 +147,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 		    // fill struct option
 		    // 1st - Convert c-string to cpp-std::string; 2nd - Convert cpp-std::string to life::color;
+        std::cout << "COOOOOOOOOR " << std::string ( argv[++i] ) << std::endl;
 		    state.simOptions.bkgcolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
 		    //state.simOptions.bkgcolor = std::string ( argv[++i] );// Increment 'i' to get the next argument in argv[i].
 
@@ -201,14 +202,14 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	    throw std::invalid_argument("--Unable to open configuration file. \n\n It is expected as the last argument:.\n Usage: glife [<options>] <input_cfg_file>.");
 	}
 
-	
+
 	// Reading configuration file
 	std::string line;
 
 	int w, h; // temp with and height
 	getline(configFile, line); // read board size <nLin> <nCol>
 	std::stringstream lineStr(line);
-	lineStr >> h >> w >> std::ws; 
+	lineStr >> h >> w >> std::ws;
 	h += 2; // add dead boundary
 	w += 2; // add dead boundary
 	//life.setWidth(w+2); // add dead boundary
@@ -232,45 +233,45 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	// reset current life cellboard to new cellboard
 	life.resetCellboard( init_board, w, h );
 
-	
+
 	// read char representing alive cell
-	getline(configFile, line); 
-	state.simOptions.char_alive = line[0];	
+	getline(configFile, line);
+	state.simOptions.char_alive = line[0];
 
 	// Read configuratio file board; get cell alives and put them in the life cell board
 	i=0; // line number
-	while( getline(configFile, line) ){ 
-	  
+	while( getline(configFile, line) ){
+
 	  int j=0; // col number
-	  while( line[j] != '\0' && j < life.getWidth()-2 ){ 
+	  while( line[j] != '\0' && j < life.getWidth()-2 ){
 
 	    if( line[j] == state.simOptions.char_alive ){
 	      Celula tmp_cell;
-	      
-	      // set cell position and state as alive 
-	      tmp_cell.x=j+1; 
+
+	      // set cell position and state as alive
+	      tmp_cell.x=j+1;
 	      tmp_cell.y=i+1;
 	      tmp_cell.alive=true;
-	      
+
 	      life.setCell(tmp_cell);
-	    } 
+	    }
 	    j++;
-	    
+
 	  }
-	  i++;	  
+	  i++;
 	  if( i >= life.getHeigth()-2 ){ break; } // read only cellboard size
-	  
+
 	}
-	
+
 	// closing file
         configFile.close();
-	  
+
 	// Process game options
 	std::cout << "\n\n *** Starting simulation *** \n\n"
 		  << " *Simulation parameters* \n"
 		  << " Cell board size: " <<  life.getHeigth()-2
 		  << " x " << life.getWidth()-2 << "\n";
-	
+
 	if( state.simOptions.maxgen == 0 ){
 	    std::cout << " No generation limit set.\n";
 	} else {
@@ -287,17 +288,17 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	    	      << "    Block size: " <<  state.simOptions.blocksize << "\n"
 		      << "    Dead cell color: " << state.simOptions.bkgcolor << "\n"
 		      << "    Alive cell color: " <<  state.simOptions.alivecolor << "\n";
-	    
+
 	}
-	
+
 	if( state.simOptions.outfile != "" ){
 	  std::cout << "Printing in text file. \n"
 		    << "Text file will be saved at: " <<  state.simOptions.outfile << "\n"
 		      << "Char representing alive cells: " << state.simOptions.char_alive;
 	}
-	std::cout << std::endl;    
-	       
-	//  Registra primeiro loglife 
+	std::cout << std::endl;
+
+	//  Registra primeiro loglife
 	log->push_back( life.getAlive() );
 
 	// Update current generation
@@ -392,7 +393,7 @@ bool life::LifeSimulation::gameover( SimulationState &state )
   // check if any gameover condition have happened
   if(  life.extinct() || log->isStable() || LimitGen ) {
 
-    
+
     return true;
   }
 
@@ -401,11 +402,11 @@ bool life::LifeSimulation::gameover( SimulationState &state )
 }
 
 
-void life::LifeSimulation::render( SimulationState &state ) 
+void life::LifeSimulation::render( SimulationState &state )
 {
-  
+
   if( state.simOptions.imgdir == "" ){  // Printing in console
-   
+
 
     // defining images per second in console
     if( state.simOptions.fps != 0 ){
@@ -413,48 +414,48 @@ void life::LifeSimulation::render( SimulationState &state )
     }
 
     // print current configuration
-    //std::cout << "GERAÇÃO ATUAL log: " << log->size() << std::endl; // apagar depois! ????????????????
-    std::cout << "GERAÇÃO ATUAL: " << state.currentGeneration << std::endl;
-    std::cout << life << std::endl;
 
-    
+      std::cout << "GENERATION " << state.currentGeneration << std::endl;
+      std::cout << life << std::endl;
+
+
     // check if simulation is over and print final message
     if( life.extinct() ){
-      std::cout << " *GERAÇÃO EXTINTA* " << std::endl;
-      
+      std::cout << " *EXTINCT GENERATION* " << std::endl;
+
     } else if ( log->isStable() ){
 
-      std::cout << " *ESTABILIDADE ATINGIDA* " << std::endl;
-      std::cout << " Frequência: " << log->getFreq() << std::endl;
-      
+      std::cout << " *STABILITY ACHIEVED* " << std::endl;
+      std::cout << " Frequency: " << log->getFreq() << std::endl;
+
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 
-      std::cout << " *NÚMERO MÁXIMO DE GERAÇÕES ATINGIDO* " << std::endl;
+      std::cout << " *MAXIMUM GENERATION NUMBER ACHIEVED* " << std::endl;
     }
-      
-    
+
+
   } else { // Printing graphic images
-    
-    // Create canvas 
-    short blocksize = state.simOptions.blocksize;	    
-    life::Canvas image( life.getWidth(), life.getHeigth(), blocksize ); 
-    
+
+    // Create canvas
+    short blocksize = state.simOptions.blocksize;
+    life::Canvas image( life.getWidth(), life.getHeigth(), blocksize );
+
     // define nome da proxima imagem e local onde irá salvar a imagem
     std::string filename;
     std::string sc = std::to_string( state.currentGeneration );
-    filename =  state.simOptions.imgdir + "generation" + sc + ".png"; 
+    filename =  state.simOptions.imgdir + "generation" + sc + ".png";
 
-    life::Color bkgcolor = state.simOptions.bkgcolor;	
+    life::Color bkgcolor = state.simOptions.bkgcolor;
     life::Color alivecolor = state.simOptions.alivecolor;
-  
+
     /// desenhar no canvas!
     create_image( image, life.getWidth(), life.getHeigth(), life, filename, bkgcolor, alivecolor );
-    	    
+
   }
-	
+
   if( state.simOptions.outfile != "" ){ // Printing in text file
 
-      
+
     // Reading output text file name
     std::string fileName{ state.simOptions.outfile };
 
@@ -468,24 +469,33 @@ void life::LifeSimulation::render( SimulationState &state )
     }
 
     // print current configuration
-    outputFile << "GERAÇÃO ATUAL: " << state.currentGeneration << std::endl;
-    outputFile << life << std::endl;
+      outputFile << "GENERATION " << state.currentGeneration << std::endl;
+      outputFile << life << std::endl;
 
-    
+
     // check if simulation is over and print final message
     if( life.extinct() ){
-      outputFile << " *GERAÇÃO EXTINTA* " << std::endl;
-      
+      outputFile << " *EXTINCT GENERATION* " << std::endl;
+
     } else if ( log->isStable() ){
 
-      outputFile << " *ESTABILIDADE ATINGIDA* " << std::endl;
-      outputFile << " Frequência: " << log->getFreq() << std::endl;
-      
+      outputFile << " *STABILITY ACHIEVED* " << std::endl;
+      // to compensate the frenquency counter
+      if( state.simOptions.imgdir == "" )
+      {
+        outputFile << " Frequency: " << log->getFreq()-1 << std::endl;
+      }
+      else
+      {
+        outputFile << " Frequency: " << log->getFreq() << std::endl;
+      }
+
+
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 
-      outputFile << " *NÚMERO MÁXIMO DE GERAÇÕES ATINGIDO* " << std::endl;
+      outputFile << " *MAXIMUM GENERATION NUMBER ACHIEVED* " << std::endl;
     }
-    
+
     // closing file
     outputFile.close();
 
