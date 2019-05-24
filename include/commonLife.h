@@ -85,7 +85,7 @@ namespace life {
     life::Color bkgcolor;
     life::Color alivecolor;
     std::string outfile;     //!< text representation file
-    char char_alive;         //!< char representing alive cell 
+    char char_alive;         //!< char representing alive cell
 
   } Options;
 

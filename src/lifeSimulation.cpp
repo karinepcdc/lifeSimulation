@@ -402,6 +402,7 @@ bool life::LifeSimulation::gameover( SimulationState &state )
 
 void life::LifeSimulation::render( SimulationState &state )
 {
+  bool stable = log->isStable();
 
   if( state.simOptions.imgdir == "" ){  // Printing in console
 
@@ -421,10 +422,11 @@ void life::LifeSimulation::render( SimulationState &state )
     if( life.extinct() ){
       std::cout << " *EXTINCT GENERATION* " << std::endl;
 
-    } else if ( log->isStable() ){
+    } else if ( stable ){
 
       std::cout << " *STABILITY ACHIEVED* " << std::endl;
       std::cout << " Frequency: " << log->getFreq() << std::endl;
+      std::cout << " Generation equivalent to Generation " << state.currentGeneration - log->getFreq() - 1 << std::endl;
 
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 
@@ -475,18 +477,11 @@ void life::LifeSimulation::render( SimulationState &state )
     if( life.extinct() ){
       outputFile << " *EXTINCT GENERATION* " << std::endl;
 
-    } else if ( log->isStable() ){
+    } else if ( stable ){
 
       outputFile << " *STABILITY ACHIEVED* " << std::endl;
-      // to compensate the frenquency counter
-      if( state.simOptions.imgdir == "" )
-      {
-        outputFile << " Frequency: " << log->getFreq()-1 << std::endl;
-      }
-      else
-      {
-        outputFile << " Frequency: " << log->getFreq() << std::endl;
-      }
+      outputFile << " Frequency: " << log->getFreq() << std::endl;
+      outputFile << " Generation equivalent to Generation " << state.currentGeneration - log->getFreq() - 1 << std::endl;
 
 
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){

@@ -14,7 +14,7 @@ namespace life
       /// vector of alive cells vector
       std::vector< std::vector<life::Celula> > logData; // matrix with all generations simulated (keep track of alive cells only)
       int frequency; // frequency of a stable configuration
-	
+
         /// Comapre generations
         /**
         * Compare two generations
@@ -61,11 +61,13 @@ namespace life
         /// Checks if the simulation are stable
         /**
         * Checks if the simulation are stable comparing each generation saved
-        * in log with the actual generation (last saved in log)
+        * in log with the actual generation (last saved in log) and counts the frequency
         *
         * @Returns true if are stable
         */
         bool isStable();
+
+        
 
         // comparar o que exatamente?
         //bool operator==();
