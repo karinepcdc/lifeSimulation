@@ -9,7 +9,7 @@ int main( int argc, char * argv[] )
 
   life::LifeConfig vida;
   life::LogLife log;
-  life::LifeSimulation mySim(vida,log); // CAUSA DO ERRO DE MEMÓRIA
+  life::LifeSimulation mySim(vida,log); 
   life::SimulationState state;
 
   //std::vector<life::Celula> vv;

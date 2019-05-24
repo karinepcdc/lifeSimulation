@@ -19,12 +19,12 @@ namespace life
   /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
   class LifeSimulation
   {
-
-  public:
-    // voltar a ser privado após consertar o render??????????????????????
+  private:
     life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
     life::LogLife* log;        // Log das gerações
 
+  public:
+    
     /// Default constructor 
     LifeSimulation()
     {/* empty */}

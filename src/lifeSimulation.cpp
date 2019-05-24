@@ -425,6 +425,7 @@ void life::LifeSimulation::render( SimulationState &state )
     } else if ( log->isStable() ){
 
       std::cout << " *ESTABILIDADE ATINGIDA* " << std::endl;
+      std::cout << " Frequência: " << log->getFreq() << std::endl;
       
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 
@@ -478,6 +479,7 @@ void life::LifeSimulation::render( SimulationState &state )
     } else if ( log->isStable() ){
 
       outputFile << " *ESTABILIDADE ATINGIDA* " << std::endl;
+      outputFile << " Frequência: " << log->getFreq() << std::endl;
       
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 

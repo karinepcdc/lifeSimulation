@@ -36,9 +36,9 @@
   bool life::LogLife::isStable()
   {
     size_t actualGeneration = logData.size();
-    int freq = 0; // 0 ou 1?
     bool stable = false;
-    // is searched a generation equal the actual, if found, is stable
+    
+    // Searching a generation equal to the actual. If it is found, then we have a stable life dynamic
     for( size_t i = 0; i < actualGeneration-1; i++ )
     {
       //std::cout << "CHEGUEI AQUI " << actualGeneration << std::endl;
@@ -46,18 +46,14 @@
       {
         stable = true;
       }
+      
       // the freq is the distance between the found genearion and actual generation
       if( stable )
       {
-        freq++;
+        frequency++;
       }
-    }
-    if( stable )
-    {
-      freq = freq - 1;
-      std::cout << "SIMULAÇÃO ESTAVEL!\nCOM FREQUENCIA: " << freq << std::endl;
-      return true;
+      
     }
     
-    return false;
+    return stable;
   }

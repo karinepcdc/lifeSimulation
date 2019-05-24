@@ -11,9 +11,10 @@ namespace life
   class LogLife
   {
       private:
-        /// vector of alive cells vector
-        std::vector< std::vector<life::Celula> > logData;
-
+      /// vector of alive cells vector
+      std::vector< std::vector<life::Celula> > logData; // matrix with all generations simulated (keep track of alive cells only)
+      int frequency; // frequency of a stable configuration
+	
         /// Comapre generations
         /**
         * Compare two generations
@@ -32,7 +33,8 @@ namespace life
         /// default constructor;
         LogLife()
         {
-	  logData.reserve(1); 
+	  logData.reserve(1);
+	  frequency = -1; // no generation stability
         }
 
         /// Loglife destructor
@@ -67,6 +69,11 @@ namespace life
 
         // comparar o que exatamente?
         //bool operator==();
+
+      int getFreq() const
+      {
+	  return frequency;
+      }
   };
 }
 
