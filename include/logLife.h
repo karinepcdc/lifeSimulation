@@ -67,15 +67,16 @@ namespace life
         */
         bool isStable();
 
-        
-
-        // comparar o que exatamente?
-        //bool operator==();
-
-      int getFreq() const
-      {
-	  return frequency;
-      }
+        /// Returns the frequency of stability if the simulation are stable
+        /**
+        * The frequency is counted in isStable() method
+        *
+        * @Returns number of frequency
+        */
+        int getFreq() const
+        {
+  	       return frequency;
+        }
   };
 }
 

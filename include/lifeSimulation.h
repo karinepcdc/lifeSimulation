@@ -14,17 +14,17 @@
 #include "../include/canvas/canvas_Life.h"
 
 enum InitMessages { CONTINUE, HELP };
- 
+
 namespace life
 {
 
-  
-  /// Classe que ativa outras classes, instancia objetos e controla o fluxo da simulação (melhorar texto)
+
+  /// class that constrols the all simulation
   class LifeSimulation
   {
   private:
-    life::LifeConfig life;    //!< Ecosistema da simulação; Matriz com células vivas e mortas
-    life::LogLife* log;       //!< Log das gerações
+    life::LifeConfig life;    //!< Simulation ecosystem, matrix with dead and alive cells
+    life::LogLife* log;       //!< Log of simulation, contain all generations
 
   public:
 
@@ -77,7 +77,7 @@ namespace life
      *
      * @param state: SimulationState that contais the number of current generation and the cells that must die or live
      *
-     *  Calls the methodo of LifeConfig evolve() to change the state of the cells
+     *  Calls the method of LifeConfig evolve() to change the state of the cells
      *  ,add the cew generation in the log and sum 1 to state.currentGeneration
      */
     void update( SimulationState &state);
@@ -100,13 +100,6 @@ namespace life
 
   private:
 
-    /**
-    *  Checks if the simulation are stable
-    *
-    * return true if are
-    */
-    // ??????????
-    //bool stable() const;
 
 
   };
