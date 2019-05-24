@@ -271,8 +271,8 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 
 	// Process game options
 	std::cout << "\n\n *** Starting simulation *** \n\n"
-		  << " *Simulation parameters* \n"
-		  << " Cell board size: " <<  life.getHeigth()-2
+		  << "\n *Simulation parameters* \n"
+		  << "\n Cell board size: " <<  life.getHeigth()-2
 		  << " x " << life.getWidth()-2 << "\n";
 
 	if( state.simOptions.maxgen == 0 ){
@@ -291,12 +291,12 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 		      << "    Image will be saved at: " <<  state.simOptions.imgdir << "\n"
 	    	      << "    Block size: " <<  state.simOptions.blocksize << "\n"
 		      << "    Dead cell color: " << state.simOptions.bkgcolor << "\n"
-		      << "    Alive cell color: " <<  state.simOptions.alivecolor << "\n";
+		      << "    Alive cell color: " <<  state.simOptions.alivecolor;
 
 	}
 
 	if( state.simOptions.outfile != "" ){
-	  std::cout << "Printing in text file. \n"
+	  std::cout << "\n>>> Printing in text file. \n"
 		    << "Text file will be saved at: " <<  state.simOptions.outfile << "\n"
 		    << "Char representing alive cells: " << life.getcharAliveCell();
 	}
