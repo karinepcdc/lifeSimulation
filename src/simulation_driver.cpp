@@ -3,6 +3,22 @@
 #include "../include/canvas/canvas_Life.h"
 
 
+std::string stopMessage( InitMessages flag ){
+
+  std::string message;
+
+    switch ( flag ) {
+    case HELP:
+      message = "*** FIM ***";
+	break;
+    default:
+      message = "Stop message flag not valid.";
+    }
+
+  return message;
+}
+
+
 /// main function
 int main( int argc, char * argv[] )
 {
@@ -12,13 +28,17 @@ int main( int argc, char * argv[] )
   life::LifeSimulation mySim(vida,log);
   life::SimulationState state;
 
-  //std::vector<life::Celula> vv;
+   // Set up simulation
+  InitMessages outputFlag = mySim.initialize( argc, argv, state );
 
-  // Set up simulation
-  mySim.initialize( argc, argv, state );
+  // stop simulation in case user invoque help menu
+  if( outputFlag == HELP ){
+    std::cout << stopMessage( HELP ) << std::endl;
+    return EXIT_SUCCESS;
+  }
 
 
-  // print in console or/and write in file
+  // print current configuration in console or/and write in file
   mySim.render( state );
 
 
@@ -32,11 +52,8 @@ int main( int argc, char * argv[] )
     // Update changes
     mySim.update( state );
 
-    // print in console or/and write in file
+    // print current configuration in console or/and write in file
     mySim.render( state );
-
-    //vv = vida.getAlive();
-    //std::cout << "numero de vivas: " << vv.size() << std::endl;
 
   }
 

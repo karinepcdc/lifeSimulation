@@ -12,9 +12,10 @@ namespace life
   {
       private:
           /// LifeConfig data
-          int width;
-          int heigth;
-          life::Celula **cellBoard;
+          int width;                //!< cellBoard width
+          int heigth;               //!< cellBoard heigth
+          life::Celula **cellBoard; //!< cellBoard: life simulation enviroment 
+          char charAliveCell; //!< char representing alive cell 
 
       public:
 
@@ -23,6 +24,7 @@ namespace life
 	      width=0;
 	      heigth=0;
 	      cellBoard = nullptr;
+	      charAliveCell='*';
 	  }
 
           /// Parameter initialization constructor
@@ -151,6 +153,21 @@ namespace life
 	    heigth = h;
 	  }
 
+          /// Set charAliveCell
+          /**
+          * @param c char representing alive cell on outputs
+          */
+          void setcharAliveCell( char c ){
+	     charAliveCell = c;
+	  }
+
+          /// Set charAliveCell
+          /**
+          * @param c char representing alive cell on outputs
+          */
+          char getcharAliveCell( void ){
+	      return charAliveCell;
+	  }
 
           /// Reset cell board
           /**
@@ -202,7 +219,7 @@ namespace life
 	      for( int i = 1; i < lifeBoard.width-1; i++ ) {
 		
                 if( lifeBoard.cellBoard[i][j].alive ) {
-                    os << "*";
+                    os << lifeBoard.charAliveCell;
                 }
                 else {
                     os << ".";
