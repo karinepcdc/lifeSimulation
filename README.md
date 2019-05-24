@@ -2,8 +2,8 @@
 
   O lifeSimulation é um simulador do *jogo da vida de Conway*. Nessa simulação, células que habitam uma grade retangular estão sujeitas a certas regras que determinam a sua sobrevivencia dependendo do número de vizinhos vivos. Uma célula que tem vizinhos demais (4 ou mais) ou de menos (nenhum ou 1) não sobrevive na próxima geração. Apenas células com 2 ou três vizinhos vivos permanecem vivas e células mortas com exatamente 3 vizinhos voltam a vida na próxima geração. Um detalhe importante é que todos os nascimentos e mortes ocorridos em uma geração acontecem ao mesmo tempo.
 
-  Assim, o usuário fornece um arquivo contendo uma configuração inicial (formato descrito abaixo) e pode observar a evolução do sistema no console ou, se preferi,r em uma série de imagens png que podem ser transformadas em vídeo utilizando o comando (necessita de ffmpeg instalado):
-  
+  Assim, o usuário fornece um arquivo contendo uma configuração inicial (formato descrito abaixo) e pode observar a evolução do sistema no console ou, se preferir, em uma série de imagens png que podem ser transformadas em vídeo utilizando o comando (necessita de ffmpeg instalado):
+
      $ ffmpeg -framerate 24 -i generation%02d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" glider_gun.mp4
 
 A saída do console pode ser salva em arquivo. (Veja as opções disponíveis no menu `help`.)
@@ -44,9 +44,3 @@ O código utilizado para gerar as imagens em png (loadpng.cpp) foi feito por Sel
 
     Daniel do Nascimento Gomes
     Karine Piacentini Coelho da Costa
-
-
-
-
-
-

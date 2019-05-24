@@ -50,6 +50,6 @@ void create_image( life::Canvas& image, size_t width, size_t height, life::LifeC
   }
 
 
-  // salvar imagem
+  // save image
   encode_png( filename, image.pixels(), image.width(), image.height() );
 }

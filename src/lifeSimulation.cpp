@@ -56,9 +56,9 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 
     // Read game options and process game options
     std::string option;
-   
+
     option = argv[1];
- 
+
     if( option == "--help"){
 
       std::cout << " >>> Usage: glife [<options>] <input_cfg_file> or glife --help \n\n"
@@ -239,7 +239,7 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 	  throw std::invalid_argument("--char '.' is the default representation of dead cells. Choose another character to represent alive cells.");
 	}
 	life.setcharAliveCell(line[0]);
-	
+
 
 	// Read configuratio file board; get cell alives and put them in the life cell board
 	i=0; // line number
@@ -288,10 +288,10 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 		      << "Char representing alive cells: " << life.getcharAliveCell();
 	} else {
 	    std::cout << "\n>>> Printing graphic images. \n"
-		      << "    Image will be saved at: " <<  state.simOptions.imgdir << "\n"
-	    	      << "    Block size: " <<  state.simOptions.blocksize << "\n"
-		      << "    Dead cell color: " << state.simOptions.bkgcolor << "\n"
-		      << "    Alive cell color: " <<  state.simOptions.alivecolor;
+		      << "    Images will be saved at: " <<  state.simOptions.imgdir << "\n";
+	    //	      << "    Block size: " <<  state.simOptions.blocksize << "\n"
+		  //    << "    Dead cell color: " << state.simOptions.bkgcolor << "\n"
+		  //    << "    Alive cell color: " <<  state.simOptions.alivecolor;
 
 	}
 
@@ -302,7 +302,7 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 	}
 	std::cout << std::endl;
 
-	//  Registra primeiro loglife
+	//  register the first generation
 	log->push_back( life.getAlive() );
 
 	// Update current generation
@@ -311,7 +311,7 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 	return CONTINUE;
 }
 
-    /// Decide, baseado na configuração atual do ecosistema, quais celulas permanecerão vivas e quais irão morrer.
+
     void life::LifeSimulation::process_events( life::SimulationState &state )
     {
 
@@ -369,7 +369,7 @@ InitMessages life::LifeSimulation::initialize( int argc, char *argv[], life::Sim
 
     }
 
-/// Atualiza o ecosistema baseado nas decisões do process_events
+
 void life::LifeSimulation::update( SimulationState &state )
 {
 
@@ -384,7 +384,7 @@ void life::LifeSimulation::update( SimulationState &state )
 
 }
 
-/// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
+
 bool life::LifeSimulation::gameover( SimulationState &state )
 {
 
@@ -447,7 +447,7 @@ void life::LifeSimulation::render( SimulationState &state )
     short blocksize = state.simOptions.blocksize;
     life::Canvas image( life.getWidth(), life.getHeigth(), blocksize );
 
-    // define nome da proxima imagem e local onde irá salvar a imagem
+    // define next image name and local to save her
     std::string filename;
     std::string sc = std::to_string( state.currentGeneration );
     filename =  state.simOptions.imgdir + "generation" + sc + ".png";
@@ -455,7 +455,7 @@ void life::LifeSimulation::render( SimulationState &state )
     life::Color bkgcolor = state.simOptions.bkgcolor;
     life::Color alivecolor = state.simOptions.alivecolor;
 
-    /// desenhar no canvas!
+    // drawn on canvas
     create_image( image, life.getWidth(), life.getHeigth(), life, filename, bkgcolor, alivecolor );
 
   }
@@ -499,7 +499,7 @@ void life::LifeSimulation::render( SimulationState &state )
     // closing file
     outputFile.close();
 
-    
+
   }
 
 

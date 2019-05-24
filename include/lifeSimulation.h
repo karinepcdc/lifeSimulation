@@ -91,7 +91,7 @@ namespace life
     void render( SimulationState &state );
 
     /// Checks if the game over
-    /*
+    /**
      * Checks if the game over, looking if the generations are stable or extinct
      *
      * @Returns true if the game over, else, returns false
