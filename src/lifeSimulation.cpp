@@ -8,7 +8,6 @@ life::Color strToColor( const std::string color )
     if( color == "BLACK" ){
 	return life::BLACK;
     }
-
     else if ( color == "WHITE" ){
       return life::WHITE;
       } else if ( color == "DARK_GREEN" ){
@@ -35,8 +34,8 @@ life::Color strToColor( const std::string color )
       return life::LIGHT_YELLOW;
       }
     else {
-
-	throw std::invalid_argument("--Invalid color. Check '--help' to see available palette.");
+      std::cout << color << std::endl;
+	throw std::invalid_argument("--Invalid color. Check '--help' to see available palette.\nDigited color: " + color);
     }
 }
 
@@ -147,7 +146,6 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 
 		    // fill struct option
 		    // 1st - Convert c-string to cpp-std::string; 2nd - Convert cpp-std::string to life::color;
-        std::cout << "COOOOOOOOOR " << std::string ( argv[++i] ) << std::endl;
 		    state.simOptions.bkgcolor = strToColor( std::string ( argv[++i] ) );// Increment 'i' to get the next argument in argv[i].
 		    //state.simOptions.bkgcolor = std::string ( argv[++i] );// Increment 'i' to get the next argument in argv[i].
 

@@ -21,11 +21,11 @@ namespace life
   {
   private:
     life::LifeConfig life;    // Ecosistema da simulação; Matriz com células vivas e mortas
-    life::LogLife* log;        // Log das gerações
+    life::LogLife* log;       // Log das gerações
 
   public:
-    
-    /// Default constructor 
+
+    /// Default constructor
     LifeSimulation()
     {/* empty */}
 

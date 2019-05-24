@@ -14,28 +14,26 @@ void create_image( life::Canvas& image, size_t width, size_t height, life::LifeC
 {
   // desenhar
   // mudar a cor das vivas
-  
+
   for(size_t a=0; a < width; a++)
   {
     for(size_t b=0; b < height; b++)
     {
       life::Celula temp = vida.getCell(a,b);
-      
+
       if(temp.alive)
       {
-        image.pixel( life::Point2(a,b), life::RED);
+        image.pixel( life::Point2(a,b), alivecolor);
       }
       else
       {
-        image.pixel( life::Point2(a,b), life::YELLOW);
+        image.pixel( life::Point2(a,b), bkgcolor);
       }
     }
-    
+
   }
 
 
   // salvar imagem
   encode_png( filename, image.pixels(), image.width(), image.height() );
 }
-
-
