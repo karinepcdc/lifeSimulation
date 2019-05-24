@@ -61,7 +61,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
     // definied default game option
 	   state.simOptions.imgdir = "";     
 	   state.simOptions.maxgen = 0;     
-	   state.simOptions.fps = 2;        
+	   state.simOptions.fps = 1;        
 	   state.simOptions.blocksize = 40;  
 	   state.simOptions.bkgcolor = life::YELLOW;
 	   state.simOptions.alivecolor = life::RED;
@@ -206,7 +206,7 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	std::string line;
 
 	int w, h; // temp with and height
-	getline(configFile, line); // read boad size <nLin> <nCol>
+	getline(configFile, line); // read board size <nLin> <nCol>
 	std::stringstream lineStr(line);
 	lineStr >> h >> w >> std::ws; 
 	h += 2; // add dead boundary
@@ -291,8 +291,8 @@ void life::LifeSimulation::initialize( int argc, char *argv[], life::SimulationS
 	}
 	
 	if( state.simOptions.outfile != "" ){
-	    std::cout << "Printing in text file. \n"
-		      << "Image will be saved at: " <<  state.simOptions.outfile << "\n"
+	  std::cout << "Printing in text file. \n"
+		    << "Text file will be saved at: " <<  state.simOptions.outfile << "\n"
 		      << "Char representing alive cells: " << state.simOptions.char_alive;
 	}
 	std::cout << std::endl;    
@@ -375,34 +375,120 @@ void life::LifeSimulation::update( SimulationState &state )
 
     // next generation
     state.currentGeneration += 1;
-	std::cout << "SAIr " << state.currentGeneration << std::endl;
+
 }
 
 /// Retorna se a simulação acabou (atingiu um estado estável ou houve extinção)
 bool life::LifeSimulation::gameover( SimulationState &state )
 {
-	if( state.simOptions.maxgen != 0)
-	{
-		if( state.currentGeneration >= state.simOptions.maxgen )
-		{
-			return true;
-		}
-		return false;
-	}
-	else
-	{
-		if(  life.extinct() || log->isStable() ) {
-		return true;
-		}
 
-		return false;
-	}
+  bool LimitGen = false;
+
+  // check if there is a max generation
+  if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
+      LimitGen = true;
+  }
+
+  // check if any gameover condition have happened
+  if(  life.extinct() || log->isStable() || LimitGen ) {
+
+    
+    return true;
+  }
+
+  return false;
+
 }
 
 
-void life::LifeSimulation::render( SimulationState &state ) const
+void life::LifeSimulation::render( SimulationState &state ) 
 {
+  
+  if( state.simOptions.imgdir == "" ){  // Printing in console
+   
 
+    // defining images per second in console
+    if( state.simOptions.fps != 0 ){
+      std::this_thread::sleep_for( std::chrono::milliseconds( 1000/state.simOptions.fps*2 ) );
+    }
+
+    // print current configuration
+    //std::cout << "GERAÇÃO ATUAL log: " << log->size() << std::endl; // apagar depois! ????????????????
+    std::cout << "GERAÇÃO ATUAL: " << state.currentGeneration << std::endl;
+    std::cout << life << std::endl;
+
+    
+    // check if simulation is over and print final message
+    if( life.extinct() ){
+      std::cout << " *GERAÇÃO EXTINTA* " << std::endl;
+      
+    } else if ( log->isStable() ){
+
+      std::cout << " *ESTABILIDADE ATINGIDA* " << std::endl;
+      
+    } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
+
+      std::cout << " *NÚMERO MÁXIMO DE GERAÇÕES ATINGIDO* " << std::endl;
+    }
+      
+    
+  } else { // Printing graphic images
+    
+    // Create canvas 
+    short blocksize = state.simOptions.blocksize;	    
+    life::Canvas image( life.getWidth(), life.getHeigth(), blocksize ); 
+    
+    // define nome da proxima imagem e local onde irá salvar a imagem
+    std::string filename;
+    std::string sc = std::to_string( state.currentGeneration );
+    filename =  state.simOptions.imgdir + "generation" + sc + ".png"; 
+
+    life::Color bkgcolor = state.simOptions.bkgcolor;	
+    life::Color alivecolor = state.simOptions.alivecolor;
+  
+    /// desenhar no canvas!
+    create_image( image, life.getWidth(), life.getHeigth(), life, filename, bkgcolor, alivecolor );
+    	    
+  }
+	
+  if( state.simOptions.outfile != "" ){ // Printing in text file
+
+      
+    // Reading output text file name
+    std::string fileName{ state.simOptions.outfile };
+
+    // Open output text file
+    std::ofstream outputFile;
+    outputFile.open( fileName.c_str(), std::ios_base::app );
+
+    // If file fail to open throw expetion
+    if( outputFile.fail() ){
+      throw std::invalid_argument("--Unable to open output text file. Check program argument definitions with option --help.");
+    }
+
+    // print current configuration
+    outputFile << "GERAÇÃO ATUAL: " << state.currentGeneration << std::endl;
+    outputFile << life << std::endl;
+
+    
+    // check if simulation is over and print final message
+    if( life.extinct() ){
+      outputFile << " *GERAÇÃO EXTINTA* " << std::endl;
+      
+    } else if ( log->isStable() ){
+
+      outputFile << " *ESTABILIDADE ATINGIDA* " << std::endl;
+      
+    } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
+
+      outputFile << " *NÚMERO MÁXIMO DE GERAÇÕES ATINGIDO* " << std::endl;
+    }
+    
+    // closing file
+    outputFile.close();
+
+    //state.simOptions.char_alive
+  }
 
 
 }

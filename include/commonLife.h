@@ -79,7 +79,7 @@ namespace life {
     std::string imgdir;      //!< output images file
     int maxgen;              //!< Maximum number of generations to simulate
     int fps;                 //!< Number of generations presented per second
-    int blocksize;           //!< Pixel size of a cell
+    short blocksize;           //!< Pixel size of a cell
     //std::string bkgcolor;    //!< Background color
     //std::string alivecolor;  //!< Name of alive cells color
     life::Color bkgcolor;

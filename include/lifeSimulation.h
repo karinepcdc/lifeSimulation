@@ -5,10 +5,13 @@
 #include <iostream>
 #include <fstream> // file manipulation
 #include <sstream> // string stream
+#include <chrono>
+#include <thread>
 
 #include "commonLife.h"
 #include "lifeConfig.h"
 #include "logLife.h"
+#include "../include/canvas/canvas_Life.h"
 
 namespace life
 {
@@ -82,7 +85,7 @@ namespace life
     *
     * @param state: state of simulation
     */
-    void render( SimulationState &state ) const;
+    void render( SimulationState &state );
 
     /// Checks if the game over
     /*
