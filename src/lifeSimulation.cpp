@@ -420,25 +420,8 @@ void life::LifeSimulation::render( SimulationState &state )
     }
 
     // print current configuration
-
-      std::cout << "GENERATION " << state.currentGeneration << std::endl;
-      std::cout << life << std::endl;
-
-
-    // check if simulation is over and print final message
-    if( life.extinct() ){
-      std::cout << " *EXTINCT GENERATION* " << std::endl;
-
-    } else if ( stable ){
-
-      std::cout << " *STABILITY ACHIEVED* " << std::endl;
-      std::cout << " Frequency: " << log->getFreq() << std::endl;
-      std::cout << " Generation equivalent to Generation " << state.currentGeneration - log->getFreq() - 1 << std::endl;
-
-    } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
-
-      std::cout << " *MAXIMUM GENERATION NUMBER ACHIEVED* " << std::endl;
-    }
+    std::cout << "GENERATION " << state.currentGeneration << std::endl;
+    std::cout << life << std::endl;
 
 
   } else { // Printing graphic images
@@ -479,6 +462,11 @@ void life::LifeSimulation::render( SimulationState &state )
       outputFile << "GENERATION " << state.currentGeneration << std::endl;
       outputFile << life << std::endl;
 
+    // closing file
+    outputFile.close();
+
+  }
+
 
     // check if simulation is over and print final message
     if( life.extinct() ){
@@ -488,19 +476,12 @@ void life::LifeSimulation::render( SimulationState &state )
 
       outputFile << " *STABILITY ACHIEVED* " << std::endl;
       outputFile << " Frequency: " << log->getFreq() << std::endl;
-      outputFile << " Generation equivalent to Generation " << state.currentGeneration - log->getFreq() - 1 << std::endl;
+      outputFile << " Last generation equivalent to Generation " << state.currentGeneration - log->getFreq() - 1 << std::endl;
 
 
     } else if( state.simOptions.maxgen != 0 and state.currentGeneration >= state.simOptions.maxgen ){
 
       outputFile << " *MAXIMUM GENERATION NUMBER ACHIEVED* " << std::endl;
     }
-
-    // closing file
-    outputFile.close();
-
-
-  }
-
 
 }
